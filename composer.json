@@ -1,0 +1,21 @@
+{
+    "name": "websolutions/acf-abstraction-layer",
+    "require-dev": {
+        "phpunit/phpunit": "^6.4",
+        "phpspec/prophecy": "^1.7"
+    },
+    "authors": [
+        {
+            "name": "dsteiner23",
+            "email": "daniel.steiner@gmx.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DSteiner23\\Custom_Field_Repository\\":        "src/",
+            "DSteiner23\\Custom_Field_Repository\\Examples\\":        "examples/",
+            "Test\\":        "tests/"
+        }
+    },
+    "require": {}
+}
