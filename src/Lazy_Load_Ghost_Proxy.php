@@ -50,19 +50,28 @@ class Lazy_Load_Ghost_Proxy {
 	}
 
 	/**
-	 * @inheritdoc
+	 * @param $property
+	 *
+	 * @return bool
 	 */
 	public function is_changed( $property ) {
 		return in_array( $property, $this->change );
 	}
 
 	/**
-	 * @@inheritdoc
+	 * @param $property
 	 */
 	public function add_change( $property ) {
 		if ( ! $this->is_changed( $property ) ) {
 			$this->change[] = $property;
 		}
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_changes() {
+		return $this->change;
 	}
 
 	/**
@@ -93,12 +102,6 @@ class Lazy_Load_Ghost_Proxy {
 		throw new ProxyException(
 			sprintf( 'Invalid function call %s', $name )
 		);
-	}
-
-	public function save_to_database() {
-		foreach ($this->change as $change) {
-			$this->client->setValue('','' );
-		}
 	}
 
 	/**
@@ -186,6 +189,13 @@ class Lazy_Load_Ghost_Proxy {
 		}
 
 		return $annotations['Field'][0]['name'];
+	}
+
+	/**
+	 * @return Client_Interface
+	 */
+	public function getClient() {
+		return $this->client;
 	}
 
 	private function get_field() {

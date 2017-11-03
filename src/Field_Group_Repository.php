@@ -30,6 +30,8 @@ class Field_Group_Repository {
 	 * @param Lazy_Load_Ghost_Proxy $field_group
 	 */
 	public function persist(Lazy_Load_Ghost_Proxy $field_group) {
-		$field_group->save_to_database(); //Todo: Quatsch eigentlich weil das speichern sollte ja hier erfolgen
+		foreach ($field_group->get_changes() as $change) {
+			//$field_group->getClient()->setValue();
+		}
 	}
 }

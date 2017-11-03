@@ -17,13 +17,11 @@ class Sales_Report implements Field_Group_Interface {
 
 	/**
 	 * @var string
-	 * @Field(name="description")
 	 */
 	private $description;
 
 	/**
 	 * @var string
-	 * @Field(name="author")
 	 */
 	private $author;
 
