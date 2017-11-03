@@ -2,12 +2,12 @@
 
 namespace DSteiner23\Custom_Field_Repository\Examples;
 
-use DSteiner23\Custom_Field_Repository\Field_Group_Interface;
+use DSteiner23\Custom_Field_Repository\Field_Group;
 
 /**
- * @FieldGroup(name="sales")
+ * @Field_Group(name="sales")
  */
-class Sales_Report implements Field_Group_Interface {
+class Sales_Report extends Field_Group {
 
     /**
      * @var string
@@ -63,10 +63,5 @@ class Sales_Report implements Field_Group_Interface {
 	 */
 	public function get_author() {
 		return $this->author;
-	}
-
-	public function isChanged()
-	{
-		// TODO: Implement isChanged() method.
 	}
 }

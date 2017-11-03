@@ -57,11 +57,16 @@ class Lazy_Load_Ghost_ProxyTest extends TestCase {
 	}
 
 	public function test_set_custom_field_value() {
-		$this->client->setValue(
-			Argument::exact('report'),
-			Argument::exact('somevalue')
-		)->shouldBeCalled();
+
+		$this->client->setValue(Argument::any(), Argument::any())->shouldNotBeCalled();
 
 		$this->report->set_report('somevalue');
+		self::assertSame('somevalue', $this->report->get_report());
+	}
+
+	public function test_set_custom_field_value_adds_change() {
+		$this->report->set_report('somevalue');
+
+		self::assertTrue($this->report->is_changed('report'));
 	}
 }

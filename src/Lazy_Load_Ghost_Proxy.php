@@ -51,20 +51,24 @@ class Lazy_Load_Ghost_Proxy {
 	 * @return $this|mixed
 	 */
 	public function __call( $name, $arguments ) { // Überdenken
+
+		if (!$this->field_Group instanceof Field_Group_Interface) {
+			throw new ProxyException('Invalid object provided');
+		}
+
 		if ( method_exists( $this->field_Group, $name ) ) {
 
 			if ( 0 === strpos( $name, 'set' ) ) {
 				$property = str_replace( 'set_', '', $name ); //Todo: neee das müssen wir anders...
 				if ( $this->is_annotated_field( $property ) ) {
-					$this->client->setValue( $this->get_field_name( $property ), ...$arguments );
+					// add to list of changes
+					$this->field_Group->add_change($property);
 				}
-
-				return $this;
 			}
 
 			if ( 0 === strpos( $name, 'get' ) ) {
 				$property = str_replace( 'get_', '', $name ); //Todo: neee das müssen wir anders...
-				if ( $this->is_annotated_field( $property ) ) {
+				if ( $this->is_annotated_field( $property ) && !$this->field_Group->is_changed($property)) {
 					return $this->client->getValue( $this->get_field_name( $property ) );
 				}
 			}
