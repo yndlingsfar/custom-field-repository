@@ -5,12 +5,13 @@ namespace DSteiner23\Custom_Field_Repository\Examples;
 use DSteiner23\Custom_Field_Repository\Field_Group_Interface;
 
 /**
- * Class Test
+ * @FieldGroup(name="sales")
  */
 class Sales_Report implements Field_Group_Interface {
 
     /**
      * @var string
+     * @Field(name="report")
      */
 	private $report;
 

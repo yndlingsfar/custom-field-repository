@@ -2,7 +2,9 @@
 
 namespace DSteiner23\Custom_Field_Repository;
 
+use Alchemy\Component\Annotations\Annotations;
 use DSteiner23\Custom_Field_Repository\Client\ACF_Client;
+
 
 /**
  * Class Proxy_Factory
@@ -17,6 +19,6 @@ class Proxy_Factory
 	 * @return Lazy_Load_Ghost_Proxy
 	 */
 	static function create($field_group, $post_id) {
-		return new Lazy_Load_Ghost_Proxy(new ACF_Client(), new $field_group, $post_id);
+		return new Lazy_Load_Ghost_Proxy(new ACF_Client(), new Annotations(), new $field_group, $post_id);
     }
 }

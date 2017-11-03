@@ -14,6 +14,7 @@
         "psr-4": {
             "DSteiner23\\Custom_Field_Repository\\":        "src/",
             "DSteiner23\\Custom_Field_Repository\\Examples\\":        "examples/",
+            "Alchemy\\Component\\Annotations\\":        "libs/annotations",
             "Test\\":        "tests/"
         }
     },

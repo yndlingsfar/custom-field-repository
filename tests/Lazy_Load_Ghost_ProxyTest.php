@@ -2,6 +2,7 @@
 
 namespace Test;
 
+use Alchemy\Component\Annotations\Annotations;
 use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
 use DSteiner23\Custom_Field_Repository\Examples\Sales_Report;
 use DSteiner23\Custom_Field_Repository\Lazy_Load_Ghost_Proxy;
@@ -31,6 +32,7 @@ class Lazy_Load_Ghost_ProxyTest extends TestCase {
 
 		$this->report = new Lazy_Load_Ghost_Proxy(
 			$this->client->reveal(),
+			new Annotations(),
 			new Sales_Report(),
 			1
 		);
@@ -42,11 +44,6 @@ class Lazy_Load_Ghost_ProxyTest extends TestCase {
 		$this->report->get_test();
 	}
 
-	public function test_single_param_setter() {
-		$this->report->set_report('I am a report');
-		self::assertSame('I am a report', $this->report->get_report());
-	}
-
 	public function test_multi_param_function() {
 		$this->report->create_report_meta('Author', 'This is a test');
 		self::assertSame('Author', $this->report->get_author());
@@ -54,14 +51,14 @@ class Lazy_Load_Ghost_ProxyTest extends TestCase {
 	}
 
 	public function test_get_custom_field_value() {
-		$this->client->getValue(Argument::type('string'))->shouldBeCalled();
+		$this->client->getValue(Argument::exact('report'))->shouldBeCalled();
 
-		$this->report->get_author();
+		$this->report->get_report();
 	}
 
 	public function test_set_custom_field_value() {
 		$this->client->setValue(
-			Argument::type('string'),
+			Argument::exact('report'),
 			Argument::exact('somevalue')
 		)->shouldBeCalled();
 
