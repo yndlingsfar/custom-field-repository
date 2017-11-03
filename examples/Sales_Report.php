@@ -2,52 +2,51 @@
 
 namespace DSteiner23\Custom_Field_Repository\Examples;
 
-use DSteiner23\Custom_Field_Repository\Field_Group;
+use DSteiner23\Custom_Field_Repository\Field_Group_Interface;
 
 /**
  * @Field_Group(name="sales")
  */
-class Sales_Report extends Field_Group {
+class Sales_Report implements Field_Group_Interface {
 
-    /**
-     * @var string
-     * @Field(name="report")
-     */
+	/**
+	 * @var string
+	 * @Field(name="report")
+	 */
 	private $report;
 
 	/**
 	 * @var string
+	 * @Field(name="description")
 	 */
 	private $description;
 
 	/**
 	 * @var string
+	 * @Field(name="author")
 	 */
 	private $author;
 
 	/**
-     * @return string
-     */
-	public function get_report()
-	{
+	 * @return string
+	 */
+	public function get_report() {
 		return $this->report;
 	}
 
-    /**
-     * @param $report
-     */
-	public function set_report($report)
-    {
-        $this->report = $report;
-    }
+	/**
+	 * @param $report
+	 */
+	public function set_report( $report ) {
+		$this->report = $report;
+	}
 
 	/**
 	 * @param string $author
 	 * @param string $description
 	 */
-	public function create_report_meta($author, $description)
-	{
-		$this->author = $author;
+	public function create_report_meta( $author, $description ) {
+		$this->author      = $author;
 		$this->description = $description;
 	}
 

@@ -26,13 +26,10 @@ class Field_Group_Repository {
 		return Proxy_Factory::create( $class, $post_id );
 	}
 
+	/**
+	 * @param Lazy_Load_Ghost_Proxy $field_group
+	 */
 	public function persist(Lazy_Load_Ghost_Proxy $field_group) {
-		/** @var Field_Group_Interface $field_group */
-		foreach ( $field_group->get_changes() as $change ) {
-				$this->save_to_database( $field_group );
-			}
-	}
-
-	private function save_to_database( $field_group ) {
+		$field_group->save_to_database(); //Todo: Quatsch eigentlich weil das speichern sollte ja hier erfolgen
 	}
 }
