@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class Field_Group_RepositoryTest extends TestCase {
 
-	public function testCreateGhostObject() {
+	public function test_find_field_group() {
 		$repository = new Field_Group_Repository();
 
 		$ghost = $repository->find(

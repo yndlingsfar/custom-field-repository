@@ -23,7 +23,7 @@ class Proxy_FactoryTest extends TestCase
         );
     }
 
-    public function testCreateGhostObject()
+    public function test_create_ghost_object()
     {
        $ghost = Proxy_Factory::create(
            $this->report->reveal(),
