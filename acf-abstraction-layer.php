@@ -24,8 +24,8 @@ function check_acf_dependecies(){
 
 include_once realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'annotations' . DIRECTORY_SEPARATOR . 'Annotations.php';
 
-spl_autoload_register( 'acf_abstraction_autoloader' );
-function acf_abstraction_autoloader( $class_name ) {
+spl_autoload_register( 'custom_field_repository_autoloader' );
+function custom_field_repository_autoloader( $class_name ) {
 	$classes_dir = realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR;
 	$class_file = str_replace('DSteiner23\Custom_Field_Repository\\', '', $class_name)  . '.php';
 	$class_file = str_replace('\\', '/', $class_file);
