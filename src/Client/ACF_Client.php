@@ -13,8 +13,7 @@ class ACF_Client implements Client_Interface {
 	 *
 	 * @return mixed
 	 */
-	public function getValue( $field ) {
-		// TODO: Implement getValue() method.
+	public function get_value( $field ) {
 	}
 
 	/**
@@ -23,7 +22,7 @@ class ACF_Client implements Client_Interface {
 	 *
 	 * @return $this
 	 */
-	public function setValue( $field, $value ) {
+	public function set_value( $field, $value ) {
 		// TODO: Implement setValue() method.
 	}
 
@@ -32,7 +31,7 @@ class ACF_Client implements Client_Interface {
 	 *
 	 * @return bool
 	 */
-	public function createFieldGroup( $name ) {
+	public function create_field_group( $name ) {
 		// TODO: Implement createFieldGroup() method.
 	}
 
@@ -41,6 +40,6 @@ class ACF_Client implements Client_Interface {
 	 *
 	 * @return bool
 	 */
-	public function createField( $name ) {
+	public function create_field( $name ) {
 		// TODO: Implement createField() method.
 }}

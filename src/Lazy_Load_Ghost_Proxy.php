@@ -115,7 +115,7 @@ class Lazy_Load_Ghost_Proxy {
 
 		if ( $this->is_annotated_field( $property_name ) && ! $this->is_changed( $property_name ) ) {
 			$property->setValue( $this->field_Group,
-				$this->client->getValue( $this->get_field_name( $property_name ) ) );
+				$this->client->get_value( $this->get_field_name( $property_name ) ) );
 		}
 
 		return $property->getValue( $this->field_Group );

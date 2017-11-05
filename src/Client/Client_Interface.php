@@ -12,7 +12,7 @@ interface Client_Interface {
 	 * @param string $field
 	 * @return mixed
 	 */
-	public function getValue($field);
+	public function get_value($field);
 
 	/**
 	 * @param string $field
@@ -20,17 +20,17 @@ interface Client_Interface {
 	 *
 	 * @return $this
 	 */
-	public function setValue($field, $value);
+	public function set_value($field, $value);
 
 	/**
 	 * @param string $name
 	 * @return bool
 	 */
-	public function createFieldGroup($name);
+	public function create_field_group($name);
 
 	/**
 	 * @param $name
 	 * @return bool
 	 */
-	public function createField($name);
+	public function create_field($name);
 }

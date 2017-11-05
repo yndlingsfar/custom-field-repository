@@ -9,25 +9,34 @@ Version: 0.1
 Text Domain: ACF Abstraction Layer
 */
 
+check_dependecies();
+custom_field_repository();
+process_entitites();
 
-function check_acf_dependecies(){
-    //todo: check if ACF plugin is installed
+function check_dependecies(){
+//	if (!function_exists('acf_add_local_field_group')) {
+//		throw new \Exception('The Advanced Custom Fields Plugin is not installed');
+//	}
 }
 
-//add_action('admin_menu', 'kh_jura_importer_menu'); // Call action when initialising plugin
+// Because registering autoloader has massive side-effects in WP
+function custom_field_repository() {
+	include_once 'libs/annotations/Annotations.php';
+	include_once 'src/Client/Client_Interface.php';
+	include_once 'src/Client/ACF_Client.php';
+	include_once 'src/Field.php';
+	include_once 'src/Field_Group_Interface.php';
+	include_once 'src/Field_Group_Repository.php';
+	include_once 'src/Lazy_Load_Ghost_Proxy.php';
+	include_once 'src/Proxy_Factory.php';
+	include_once 'src/ProxyException.php';
+}
 
-/*
- * eine Art Repository mit set / get / flush / remove
- * wir brauchen ein Flag => isDetached oder so um zu schauen ob das Model bereits geflushed wurde
- *
- */
-
-include_once realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'annotations' . DIRECTORY_SEPARATOR . 'Annotations.php';
-
-spl_autoload_register( 'custom_field_repository_autoloader' );
-function custom_field_repository_autoloader( $class_name ) {
-	$classes_dir = realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR;
-	$class_file = str_replace('DSteiner23\Custom_Field_Repository\\', '', $class_name)  . '.php';
-	$class_file = str_replace('\\', '/', $class_file);
-	require_once $classes_dir . $class_file;
+function process_entitites () {
+	$dir = new DirectoryIterator(dirname(__FILE__));
+	foreach ($dir as $fileinfo) {
+		if (!$fileinfo->isDot()) {
+			var_dump($fileinfo->getFilename());
+		}
+	}
 }
