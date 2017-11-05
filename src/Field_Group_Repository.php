@@ -31,7 +31,11 @@ class Field_Group_Repository {
 	 */
 	public function persist(Lazy_Load_Ghost_Proxy $field_group) {
 		foreach ($field_group->get_changes() as $change) {
-			$field_group->getClient()->set_value($change, 'blabla', $field_group->get_id()); // Todo
+			$field_group->getClient()->set_value(
+				$change,
+				$field_group->get_property_value($change),
+				$field_group->get_id()
+			);
 		}
 	}
 }

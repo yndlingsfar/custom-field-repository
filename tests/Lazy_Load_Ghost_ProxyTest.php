@@ -64,9 +64,26 @@ class Lazy_Load_Ghost_ProxyTest extends TestCase {
 		self::assertSame('somevalue', $this->report->get_report());
 	}
 
-	public function test_set_custom_field_value_adds_change() {
+	/**
+	 * @dataProvider changeSetProvider
+	 *
+	 * @param $property
+	 * @param $expected
+	 */
+	public function test_set_custom_field_value_adds_change($property, $expected) {
 		$this->report->set_report('somevalue');
 
-		self::assertTrue($this->report->is_changed('report'));
+		self::assertSame($expected, $this->report->is_changed($property));
 	}
+
+	/**
+	 * @return array
+	 */
+	public function changeSetProvider() {
+		return [
+			['report', true],
+			['author', false],
+		];
+	}
+
 }

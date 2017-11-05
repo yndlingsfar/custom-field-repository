@@ -116,7 +116,7 @@ class Lazy_Load_Ghost_Proxy {
 	 *
 	 * @return mixed
 	 */
-	private function get_property_value( $name ) {
+	public function get_property_value( $name ) {
 		$property_name = str_replace( [ 'get_', 'get' ], '', $name );
 		$property      = $this->get_reflection_property( $property_name );
 
