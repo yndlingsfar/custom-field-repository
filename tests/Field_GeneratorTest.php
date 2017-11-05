@@ -37,6 +37,7 @@ class Field_GeneratorTest extends TestCase {
 	public function test_find_classes_with_interface() {
 
 		$this->client->create_field_group(Argument::exact('sales'))->shouldBeCalled();
+		$this->client->create_field(Argument::exact('report'), Argument::exact('sales'))->shouldBeCalled();
 
 		$generator = new Field_Generator(
 			[

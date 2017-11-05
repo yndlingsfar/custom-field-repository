@@ -75,6 +75,13 @@ class Lazy_Load_Ghost_Proxy {
 	}
 
 	/**
+	 * @return int
+	 */
+	public function get_id() {
+		return $this->post_id;
+	}
+
+	/**
 	 * @param $name
 	 * @param $arguments
 	 *
@@ -115,7 +122,7 @@ class Lazy_Load_Ghost_Proxy {
 
 		if ( $this->is_annotated_field( $property_name ) && ! $this->is_changed( $property_name ) ) {
 			$property->setValue( $this->field_Group,
-				$this->client->get_value( $this->get_field_name( $property_name ) ) );
+				$this->client->get_value( $this->get_field_name( $property_name ), $this->post_id ) );
 		}
 
 		return $property->getValue( $this->field_Group );

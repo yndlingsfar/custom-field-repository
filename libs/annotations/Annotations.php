@@ -123,6 +123,25 @@ class Annotations
         return self::$annotationCache[$className . '::' . $propertyName];
     }
 
+	/**
+	 * @param $className
+	 *
+	 * @return array
+	 */
+    public function getAllPropertyAnnotations($className)
+    {
+    	$annotations = [];
+
+    	$class = new \ReflectionClass($className);
+
+    	foreach ($class->getProperties() as $property) {
+    		// Todo: Refactoring: Property doppelt gemoppelt
+    		$annotations[] = self::getPropertyAnnotations($className, $property->getName());
+	    }
+	    
+	    return $annotations;
+    }
+
     /**
      * Gets all anotations with pattern @SomeAnnotation() from a determinated method of a given class
      * and instance its abcAnnotation class
