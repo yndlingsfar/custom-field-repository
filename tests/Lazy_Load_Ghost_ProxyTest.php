@@ -77,6 +77,10 @@ class Lazy_Load_Ghost_ProxyTest extends TestCase {
 		self::assertSame($expected, $this->report->is_changed($property));
 	}
 
+	public function test_property_path() {
+		self::assertSame('sales.report', $this->report->get_property_path('report'));
+	}
+
 	/**
 	 * @return array
 	 */

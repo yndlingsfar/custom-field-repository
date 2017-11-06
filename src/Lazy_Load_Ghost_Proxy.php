@@ -122,7 +122,7 @@ class Lazy_Load_Ghost_Proxy {
 
 		if ( $this->is_annotated_field( $property_name ) && ! $this->is_changed( $property_name ) ) {
 			$property->setValue( $this->field_Group,
-				$this->client->get_value( $this->get_field_name( $property_name ), $this->post_id ) );
+				$this->client->get_value( $this->get_property_path( $property_name ), $this->post_id ) );
 		}
 
 		return $property->getValue( $this->field_Group );
@@ -199,9 +199,9 @@ class Lazy_Load_Ghost_Proxy {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	private function get_field__group_name(  ) {
+	private function get_field_group_name() {
 		$annotations = $this->annotations->getClassAnnotations(
 			get_class( $this->field_Group )
 		);
@@ -214,13 +214,20 @@ class Lazy_Load_Ghost_Proxy {
 	}
 
 	/**
-	 * @return Client_Interface
+	 * Returns combination if field_group_name and field_name e.g. field_group.field
+	 *
+	 * @param $property_name
+	 *
+	 * @return string
 	 */
-	public function getClient() {
-		return $this->client;
+	public function get_property_path( $property_name ) {
+		return sprintf( '%s.%s', $this->get_field_group_name(), $this->get_field_name( $property_name ) );
 	}
 
-	private function get_field() {
-		// Todo
+	/**
+	 * @return Client_Interface
+	 */
+	public function get_client() {
+		return $this->client;
 	}
 }
