@@ -1,4 +1,5 @@
 <?php
+
 namespace DSteiner23\Custom_Field_Repository;
 
 use Alchemy\Component\Annotations\Annotations;
@@ -51,24 +52,45 @@ class Field_Generator {
 		return $files; //Todo: Macht das hier so Sinn?
 	}
 
+	/**
+	 * @param $class
+	 */
 	private function create_field_group( $class ) {
 		$annotations = $this->annotations->getClassAnnotations( $class );
 
 		if ( is_array( $annotations ) && array_key_exists( 'name', $annotations['Field_Group'][0] ) ) {
 			$field_group = $annotations['Field_Group'][0]['name'];
-			$this->client->create_field_group( $field_group );
+			$this->client->create_field_group( $field_group, $this->get_field_group_options( $annotations ) );
 
 			$annotations = $this->annotations->getAllPropertyAnnotations( $class );
-			$this->create_fields( $annotations,  $field_group);
+			$this->create_fields( $annotations, $field_group );
 		}
 	}
 
+	/**
+	 * @param $annotations
+	 * @param $field_group
+	 */
 	private function create_fields( $annotations, $field_group ) {
 		foreach ( $annotations as $annotation ) {
 			if ( is_array( $annotation ) && array_key_exists( 'Field', $annotation ) ) {
 				$this->client->create_field( $annotation['Field'][0]['name'], $field_group );
 			}
 		}
+	}
+
+	/**
+	 * @param $annotations
+	 *
+	 * @return array
+	 */
+	private function get_field_group_options( $annotations ) {
+		$options = [];
+		if ( array_key_exists( 'title', $annotations['Field_Group'][0] ) ) {
+			$options['title'] = $annotations['Field_Group'][0]['title'];
+		}
+
+		return $options;
 	}
 
 }

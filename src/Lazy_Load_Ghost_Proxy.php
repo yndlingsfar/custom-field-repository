@@ -199,6 +199,21 @@ class Lazy_Load_Ghost_Proxy {
 	}
 
 	/**
+	 * @return mixed
+	 */
+	private function get_field__group_name(  ) {
+		$annotations = $this->annotations->getClassAnnotations(
+			get_class( $this->field_Group )
+		);
+
+		if ( ! is_array( $annotations ) || ! array_key_exists( 'name', $annotations['Field_Group'][0] ) ) {
+			throw new ProxyException( sprintf( 'Field_Group %s not configured correctly' ) );
+		}
+
+		return $annotations['Field_Group'][0]['name'];
+	}
+
+	/**
 	 * @return Client_Interface
 	 */
 	public function getClient() {

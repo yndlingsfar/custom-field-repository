@@ -22,4 +22,8 @@ class Field_Group_RepositoryTest extends TestCase {
 			$ghost
 		);
 	}
+
+	public function test_persist() {
+
+	}
 }

@@ -12,14 +12,14 @@ class ACF_Client implements Client_Interface {
 	 * @inheritdoc
 	 */
 	public function get_value( $field, $post_id ) {
-		return get_field($field, $post_id);
+		return get_field( $field, $post_id );
 	}
 
 	/**
 	 * @inheritdoc
 	 */
 	public function set_value( $field, $value, $post_id ) {
-		update_field($field, $value, $post_id);
+		update_field( $field, $value, $post_id );
 	}
 
 	/**
@@ -27,15 +27,15 @@ class ACF_Client implements Client_Interface {
 	 */
 	public function create_field_group( $name, array $options = [] ) {
 		acf_add_local_field_group( [
-			'key' => 'name',
-			'title' => isset($options['title']) ? $options['title'] : $name,
-			'fields' => [],
+			'key'      => sprintf( 'group_%s', $name ),
+			'title'    => isset( $options['title'] ) ? $options['title'] : $name,
+			'fields'   => [],
 			'location' => [
 				[
 					[
-						'param' => 'post_type',
+						'param'    => 'post_type',
 						'operator' => '==',
-						'value' => 'post',
+						'value'    => 'post',
 					],
 				],
 			],
@@ -46,11 +46,14 @@ class ACF_Client implements Client_Interface {
 	 * @inheritdoc
 	 */
 	public function create_field( $name, $field_group, array $options = [] ) {
-		acf_add_local_field(array(
-			'key' => $name,
-			'label' => 'Sub Title',
-			'name' => 'sub_title',
-			'type' => 'text',
-			'parent' => $field_group
-		));
-}}
+		$field_name = sprintf( '%s.%s', $field_group, $name );
+		acf_add_local_field( [
+			'key'           => sprintf( 'field_%s', md5( $field_name ) ),
+			'label'         => 'Sub Title', //Todo
+			'name'          => sprintf( '%s.%s', $field_group, $name ),
+			'type'          => 'text', // Todo: konfigurierbar machen
+			'parent'        => $field_group,
+			'default_value' => '' // Todo
+		] );
+	}
+}

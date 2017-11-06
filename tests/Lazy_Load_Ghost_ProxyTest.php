@@ -51,13 +51,14 @@ class Lazy_Load_Ghost_ProxyTest extends TestCase {
 	}
 
 	public function test_get_custom_field_value() {
-		$this->client->get_value(Argument::exact('report'), Argument::exact(1))->shouldBeCalled();
+		$this->client->get_value(Argument::exact('sales.report'), Argument::exact(1))->shouldBeCalled();
 
 		$this->report->get_report();
 	}
 
 	public function test_set_custom_field_value() {
 
+		// setter method does not trigger client. Data is persisted only if repository->persist() function is called
 		$this->client->set_value(Argument::any(), Argument::any())->shouldNotBeCalled();
 
 		$this->report->set_report('somevalue');
