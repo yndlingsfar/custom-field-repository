@@ -90,7 +90,7 @@ class Lazy_Load_Ghost_Proxy {
 	public function __call( $name, $arguments ) {
 
 		if ( ! $this->field_Group instanceof Field_Group_Interface ) {
-			throw new ProxyException( 'Invalid object provided' );
+			throw new Proxy_Exception( 'Invalid object provided' );
 		}
 
 		if ( method_exists( $this->field_Group, $name ) ) {
@@ -106,7 +106,7 @@ class Lazy_Load_Ghost_Proxy {
 			return $this->field_Group->{$name}( ...$arguments );
 		}
 
-		throw new ProxyException(
+		throw new Proxy_Exception(
 			sprintf( 'Invalid function call %s', $name )
 		);
 	}
@@ -192,7 +192,7 @@ class Lazy_Load_Ghost_Proxy {
 		$annotations = $this->get_annotations( $property_name );
 
 		if ( ! is_array( $annotations ) || ! array_key_exists( 'name', $annotations['Field'][0] ) ) {
-			throw new ProxyException( sprintf( 'Field %s not configured correctly', $property_name ) );
+			throw new Proxy_Exception( sprintf( 'Field %s not configured correctly', $property_name ) );
 		}
 
 		return $annotations['Field'][0]['name'];
@@ -207,7 +207,7 @@ class Lazy_Load_Ghost_Proxy {
 		);
 
 		if ( ! is_array( $annotations ) || ! array_key_exists( 'name', $annotations['Field_Group'][0] ) ) {
-			throw new ProxyException( sprintf( 'Field_Group %s not configured correctly' ) );
+			throw new Proxy_Exception( sprintf( 'Field_Group %s not configured correctly' ) );
 		}
 
 		return $annotations['Field_Group'][0]['name'];

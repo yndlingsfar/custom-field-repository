@@ -6,7 +6,7 @@ use Alchemy\Component\Annotations\Annotations;
 use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
 use DSteiner23\Custom_Field_Repository\Examples\Sales_Report;
 use DSteiner23\Custom_Field_Repository\Lazy_Load_Ghost_Proxy;
-use DSteiner23\Custom_Field_Repository\ProxyException;
+use DSteiner23\Custom_Field_Repository\Proxy_Exception;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -39,7 +39,7 @@ class Lazy_Load_Ghost_ProxyTest extends TestCase {
 	}
 
 	public function test_call_unknown_function() {
-		self::expectExceptionMessage( ProxyException::class );
+		self::expectExceptionMessage( Proxy_Exception::class );
 		self::expectExceptionMessage( 'Invalid function call get_test' );
 		$this->report->get_test();
 	}

@@ -74,7 +74,11 @@ class Field_Generator {
 	private function create_fields( $annotations, $field_group ) {
 		foreach ( $annotations as $annotation ) {
 			if ( is_array( $annotation ) && array_key_exists( 'Field', $annotation ) ) {
-				$this->client->create_field( $annotation['Field'][0]['name'], $field_group );
+				$this->client->create_field(
+					$annotation['Field'][0]['name'],
+					$field_group,
+					$this->get_field_options($annotation)
+				);
 			}
 		}
 	}
@@ -88,6 +92,15 @@ class Field_Generator {
 		$options = [];
 		if ( array_key_exists( 'title', $annotations['Field_Group'][0] ) ) {
 			$options['title'] = $annotations['Field_Group'][0]['title'];
+		}
+
+		return $options;
+	}
+
+	private function get_field_options($annotations) {
+		$options = [];
+		if ( array_key_exists( 'default', $annotations['Field'][0] ) ) {
+			$options['default'] = $annotations['Field'][0]['default'];
 		}
 
 		return $options;

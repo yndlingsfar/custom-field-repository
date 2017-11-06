@@ -11,7 +11,7 @@ class Sales_Report implements Field_Group_Interface { //Todo: Interface brauchen
 
 	/**
 	 * @var string
-	 * @Field(name="report", type="text", default="")
+	 * @Field(name="report", type="text", default="test")
 	 */
 	private $report;
 

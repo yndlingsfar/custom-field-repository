@@ -26,7 +26,7 @@ class Field_GeneratorTest extends TestCase {
 	public function test_generate_fields() {
 
 		$this->client->create_field_group( Argument::exact( 'sales' ), Argument::any() )->shouldBeCalled();
-		$this->client->create_field( Argument::exact( 'report' ), Argument::exact( 'sales' ) )->shouldBeCalled();
+		$this->client->create_field( Argument::exact( 'report' ), Argument::exact( 'sales' ), Argument::any() )->shouldBeCalled();
 
 		$generator = new Field_Generator(
 			[
@@ -42,7 +42,7 @@ class Field_GeneratorTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider additionalOptionsProvider
+	 * @dataProvider additional_field_group_options_provider
 	 *
 	 * @param $key
 	 * @param $value
@@ -56,7 +56,8 @@ class Field_GeneratorTest extends TestCase {
 
 		$this->client->create_field(
 			Argument::exact( 'report' ),
-			Argument::exact( 'sales' )
+			Argument::exact( 'sales' ),
+			Argument::any()
 		)->shouldBeCalled();
 
 		$generator = new Field_Generator(
@@ -70,6 +71,37 @@ class Field_GeneratorTest extends TestCase {
 		$generator->generate();
 	}
 
+	/**
+	 * @dataProvider additional_field_options_provider
+	 *
+	 * @param $key
+	 * @param $value
+	 */
+	public function test_additional_options_field( $key, $value ) {
+
+		$this->client->create_field_group(
+			Argument::exact( 'sales' ),
+			Argument::any()
+		)->shouldBeCalled();
+
+		$this->client->create_field(
+			Argument::exact( 'report' ),
+			Argument::exact( 'sales' ),
+			Argument::withEntry( $key, $value )
+		)->shouldBeCalled();
+
+		$generator = new Field_Generator(
+			[
+				Sales_Report::class
+			],
+			$this->client->reveal(),
+			new Annotations()
+		);
+
+		$generator->generate();
+	}
+	
+
 	public function test_available_data_types() {
 		// Hier die Datentypen testen
 	}
@@ -77,9 +109,18 @@ class Field_GeneratorTest extends TestCase {
 	/**
 	 * @return array
 	 */
-	public function additionalOptionsProvider() {
+	public function additional_field_group_options_provider() {
 		return [
 			[ 'title', 'Annual sales reports' ]
+		];
+	}
+
+	/**
+	 * @return array
+	 */
+	public function additional_field_options_provider() {
+		return [
+			[ 'default', 'test' ]
 		];
 	}
 }
