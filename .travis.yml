@@ -1,0 +1,8 @@
+php:
+  - 5.6
+  - 7.0
+  - 7.1
+
+notifications:
+  email:
+    - daniel.steiner@gmx.de
