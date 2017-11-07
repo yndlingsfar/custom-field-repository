@@ -7,16 +7,6 @@ namespace DSteiner23\Custom_Field_Repository;
 class Field_Group_Repository {
 
 	/**
-	 * Contains all field groups that have been returned by the find method
-	 * @var array
-	 */
-	private $field_group_storage;
-
-	public function __construct() {
-		$this->field_group_storage = [];
-	}
-
-	/**
 	 * @param $class
 	 * @param $post_id
 	 *
