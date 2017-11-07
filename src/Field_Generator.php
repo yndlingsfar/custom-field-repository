@@ -11,6 +11,13 @@ use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
  */
 class Field_Generator {
 
+	const OPTION_TITLE = 'title';
+	const OPTION_DEFAULT = 'default';
+	const OPTION_TYPE = 'type';
+
+	const TYPE_TEXT = 'text';
+	const TYPE_BOOLEAN = 'true_false';
+
 	/**
 	 * @var Client_Interface
 	 */
@@ -24,6 +31,10 @@ class Field_Generator {
 	 * @var Annotations
 	 */
 	private $annotations;
+
+	private static $allowed_field_options = [self::OPTION_DEFAULT, self::OPTION_TYPE];
+	private static $allowed_field_group_options = [self::OPTION_TITLE];
+	private static $allowed_data_types = [self::TYPE_TEXT, self::TYPE_BOOLEAN];
 
 	/**
 	 * Field_Generator constructor.
@@ -63,16 +74,19 @@ class Field_Generator {
 			$this->client->create_field_group( $field_group, $this->get_field_group_options( $annotations ) );
 
 			$annotations = $this->annotations->getAllPropertyAnnotations( $class );
-			$this->create_fields( $annotations, $field_group );
+
+			foreach ( $annotations as $annotation ) {
+				$this->create_field( $annotation, $field_group );
+			}
+
 		}
 	}
 
 	/**
-	 * @param $annotations
+	 * @param $annotation
 	 * @param $field_group
 	 */
-	private function create_fields( $annotations, $field_group ) {
-		foreach ( $annotations as $annotation ) {
+	private function create_field( $annotation, $field_group ) {
 			if ( is_array( $annotation ) && array_key_exists( 'Field', $annotation ) ) {
 				$this->client->create_field(
 					$annotation['Field'][0]['name'],
@@ -80,7 +94,6 @@ class Field_Generator {
 					$this->get_field_options($annotation)
 				);
 			}
-		}
 	}
 
 	/**
@@ -90,8 +103,10 @@ class Field_Generator {
 	 */
 	private function get_field_group_options( $annotations ) {
 		$options = [];
-		if ( array_key_exists( 'title', $annotations['Field_Group'][0] ) ) {
-			$options['title'] = $annotations['Field_Group'][0]['title'];
+		foreach ($annotations['Field_Group'][0] as $key => $value) {
+			if (in_array($key, self::$allowed_field_group_options)) {
+				$options[$key] = $value;
+			}
 		}
 
 		return $options;
@@ -99,11 +114,30 @@ class Field_Generator {
 
 	private function get_field_options($annotations) {
 		$options = [];
-		if ( array_key_exists( 'default', $annotations['Field'][0] ) ) {
-			$options['default'] = $annotations['Field'][0]['default'];
+		foreach ($annotations['Field'][0] as $key => $value) {
+			if (in_array($key, self::$allowed_field_options)) {
+
+				if ($key == self::OPTION_TYPE) {
+					if (!$this->validate_data_types($value)) {
+						throw new \Exception(
+							sprintf('Type %s not supported', $value)
+						);
+					}
+				}
+
+				$options[$key] = $value;
+			}
 		}
 
 		return $options;
 	}
 
+	/**
+	 * @param $data_type
+	 *
+	 * @return bool
+	 */
+	private function validate_data_types($data_type) {
+		return (in_array($data_type, self::$allowed_data_types));
+	}
 }

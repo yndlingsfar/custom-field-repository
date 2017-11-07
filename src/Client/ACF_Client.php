@@ -49,11 +49,11 @@ class ACF_Client implements Client_Interface {
 		$field_name = sprintf( '%s.%s', $field_group, $name );
 		acf_add_local_field( [
 			'key'           => sprintf( 'field_%s', md5( $field_name ) ),
-			'label'         => 'Sub Title', //Todo
+			'label'         => $field_name,
 			'name'          => sprintf( '%s.%s', $field_group, $name ),
-			'type'          => 'text', // Todo: konfigurierbar machen
+			'type'          => isset( $options['type'] ) ? $options['type'] : 'text',
 			'parent'        => $field_group,
-			'default_value' => '' // Todo
+			'default_value' => isset( $options['default'] ) ? $options['default'] : '',
 		] );
 	}
 }

@@ -100,11 +100,6 @@ class Field_GeneratorTest extends TestCase {
 
 		$generator->generate();
 	}
-	
-
-	public function test_available_data_types() {
-		// Hier die Datentypen testen
-	}
 
 	/**
 	 * @return array
@@ -120,7 +115,8 @@ class Field_GeneratorTest extends TestCase {
 	 */
 	public function additional_field_options_provider() {
 		return [
-			[ 'default', 'test' ]
+			[ 'default', 'test' ],
+			[ 'type', 'text' ],
 		];
 	}
 }
