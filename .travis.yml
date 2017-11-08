@@ -9,6 +9,9 @@ install:
     # install dependencies using system provided composer binary
     - composer install $flags
 
+script:
+  - vendor/bin/phpspec run --config=phpspec.yml --no-interaction
+
 notifications:
   email:
     - daniel.steiner@gmx.de
