@@ -23,24 +23,6 @@ class Field_GeneratorTest extends TestCase {
 		$this->client = $this->prophesize( Client_Interface::class );
 	}
 
-	public function test_generate_fields() {
-
-		$this->client->create_field_group( Argument::exact( 'sales' ), Argument::any() )->shouldBeCalled();
-		$this->client->create_field( Argument::exact( 'report' ), Argument::exact( 'sales' ), Argument::any() )->shouldBeCalled();
-
-		$generator = new Field_Generator(
-			[
-				Sales_Report::class
-			],
-			$this->client->reveal(),
-			new Annotations()
-		);
-
-		$generated = $generator->generate();
-		self::assertCount( 1, $generated );
-		self::assertInstanceOf( Sales_Report::class, $generated[0] );
-	}
-
 	/**
 	 * @dataProvider additional_field_group_options_provider
 	 *

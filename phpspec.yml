@@ -1,0 +1,4 @@
+suites:
+    acme_suite:
+        namespace: DSteiner23\Custom_Field_Repository
+        psr4_prefix: DSteiner23\Custom_Field_Repository
