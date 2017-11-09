@@ -2,12 +2,10 @@
 
 namespace DSteiner23\Custom_Field_Repository\Examples;
 
-use DSteiner23\Custom_Field_Repository\Field_Group_Interface;
-
 /**
  * @Field_Group(name="sales", title="Annual sales reports")
  */
-class Sales_Report implements Field_Group_Interface { //Todo: Interface brauchen wir nicht wirklich, oder?
+class Sales_Report {
 
 	/**
 	 * @var string

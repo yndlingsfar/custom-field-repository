@@ -53,11 +53,8 @@ class Field_Generator {
 		$files = [];
 		foreach ( $this->field_groups as $field_group ) {
 			$object = new $field_group;
-
-			if ( $object instanceof Field_Group_Interface ) {
 				$files[] = $object;
 				$this->create_field_group( $field_group );
-			}
 		}
 
 		return $files; //Todo: Macht das hier so Sinn?
