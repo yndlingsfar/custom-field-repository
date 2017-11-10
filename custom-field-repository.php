@@ -7,10 +7,24 @@ Author: dsteiner23
 Author URI: https://danielsteiner-ws.de
 Version: 1.0
 Text Domain: LOKI - Custom Field Repository
+License: GPL2
+Loki - Custom Field Repository is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+any later version.
+
+Loki - Custom Field Repository is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Loki - Custom Field Repository.
 */
 
 use DSteiner23\Custom_Field_Repository\Field_Group_Repository;
 
+if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 custom_field_repository();
 
 register_activation_hook( __FILE__, 'check_dependecies' );
