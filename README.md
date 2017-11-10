@@ -16,19 +16,52 @@ You need to have **Advanced Custom Fields Pro** installed. In the next version t
 
 A step by step series of examples that tell you have to get a development env running
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
 End with an example of getting some data out of the system or using it for a little demo
+
+### How to use it
+
+Generate annotated objects
+
+```php
+<?php
+
+/**
+ * @Field_Group(name="sales", title="Annual sales reports")
+ */
+class Sales_Report {
+
+	/**
+	 * @var string
+	 * @Field(name="report", type="text")
+	 */
+	private $report;
+
+	/**
+	 * @return string
+	 */
+	public function get_report() {
+		return $this->report;
+	}
+
+	/**
+	 * @param $report
+	 */
+	public function set_report( $report ) {
+		$this->report = $report;
+	}
+}
+```
+Registering annotated classes
+
+```php
+include_once get_stylesheet_directory() . '/models/Sales_Report.php';
+
+add_action( 'init', 'register' );
+function register() {
+	$repository = register_custom_field_repository([Sales_Report::class]);
+}
+
+```
 
 ## Running the tests
 
