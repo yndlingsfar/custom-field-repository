@@ -1,12 +1,4 @@
 <?php
-/*
- * This file is part of the phpalchemy package.
- *
- * (c) Erik Amaru Ortiz <aortiz.erik@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace Alchemy\Component\Annotations;
 
@@ -67,11 +59,11 @@ class Annotations
      * @param  string $className             class name to get annotations
      * @return array  self::$annotationCache all annotated elements
      */
-    public static function getClassAnnotations($className)
+    public function getClassAnnotations($className)
     {
         if (!isset(self::$annotationCache[$className])) {
             $class = new \ReflectionClass($className);
-            self::$annotationCache[$className] = self::parseAnnotations($class->getDocComment());
+            self::$annotationCache[$className] = $this->parseAnnotations($class->getDocComment());
         }
 
         return self::$annotationCache[$className];
@@ -84,12 +76,12 @@ class Annotations
      * @param  string $methodName            method name to get annotations
      * @return array  self::$annotationCache all annotated elements of a method given
      */
-    public static function getMethodAnnotations($className, $methodName)
+    public function getMethodAnnotations($className, $methodName)
     {
         if (!isset(self::$annotationCache[$className . '::' . $methodName])) {
             try {
                 $method = new \ReflectionMethod($className, $methodName);
-                $annotations = self::parseAnnotations($method->getDocComment());
+                $annotations = $this->parseAnnotations($method->getDocComment());
             } catch (\ReflectionException $e) {
                 $annotations = array();
             }
@@ -107,12 +99,12 @@ class Annotations
      * @param  string $propertyName          property name to get annotations
      * @return array  self::$annotationCache all annotated elements of a method given
      */
-    public static function getPropertyAnnotations($className, $propertyName)
+    public function getPropertyAnnotations($className, $propertyName)
     {
         if (!isset(self::$annotationCache[$className . '::' . $propertyName])) {
             try {
                 $property = new \ReflectionProperty($className, $propertyName);
-                $annotations = self::parseAnnotations($property->getDocComment());
+                $annotations = $this->parseAnnotations($property->getDocComment());
             } catch (\ReflectionException $e) {
                 $annotations = array();
             }
@@ -136,7 +128,7 @@ class Annotations
 
     	foreach ($class->getProperties() as $property) {
     		// Todo: Refactoring: Property doppelt gemoppelt
-    		$annotations[] = self::getPropertyAnnotations($className, $property->getName());
+    		$annotations[] = $this->getPropertyAnnotations($className, $property->getName());
 	    }
 	    
 	    return $annotations;
@@ -196,7 +188,7 @@ class Annotations
      * @param  string $docblock
      * @return array parsed annotations params
      */
-    protected static function parseAnnotations($docblock)
+    protected function parseAnnotations($docblock)
     {
         $annotations = array();
 
@@ -210,7 +202,7 @@ class Annotations
                 if (isset($matches['args'][$i])) {
                     $argsParts = trim($matches['args'][$i]);
                     $name      = $matches['name'][$i];
-                    $value     = self::parseArgs($argsParts);
+                    $value     = $this->parseArgs($argsParts);
                 } else {
                     $value = array();
                 }
@@ -229,7 +221,7 @@ class Annotations
      * @param  string $content arguments string
      * @return array           annotated arguments
      */
-    protected static function parseArgs($content)
+    protected function parseArgs($content)
     {
         $data  = array();
         $len   = strlen($content);
@@ -332,7 +324,7 @@ class Annotations
                             ));
                         }
 
-                        $val = self::parseArgs($subc);
+                        $val = $this->parseArgs($subc);
                         break;
                 }
             } else {
@@ -345,9 +337,9 @@ class Annotations
 
             if ($level === 3 || $i === $len) {
                 if ($type == 'plain' && $i === $len) {
-                    $data = self::castValue($var);
+                    $data = $this->castValue($var);
                 } else {
-                    $data[trim($var)] = self::castValue($val, !$quoted);
+                    $data[trim($var)] = $this->castValue($val, !$quoted);
                 }
 
                 $level = 1;
@@ -367,11 +359,11 @@ class Annotations
      * @param  boolean $trim indicate if the value passed should be trimmed after to try cast
      * @return mixed         returns the value converted to original type if was possible
      */
-    protected static function castValue($val, $trim = false)
+    protected function castValue($val, $trim = false)
     {
         if (is_array($val)) {
             foreach ($val as $key => $value) {
-                $val[$key] = self::castValue($value);
+                $val[$key] = $this->castValue($value);
             }
         } elseif (is_string($val)) {
             if ($trim) {
