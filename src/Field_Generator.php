@@ -54,7 +54,7 @@ class Field_Generator {
 		foreach ( $this->field_groups as $field_group ) {
 			$object = new $field_group;
 				$files[] = $object;
-				$this->create_field_group( $field_group );
+				$this->create_fields( $field_group );
 		}
 
 		return $files; //Todo: Macht das hier so Sinn?
@@ -63,7 +63,7 @@ class Field_Generator {
 	/**
 	 * @param $class
 	 */
-	private function create_field_group( $class ) {
+	private function create_fields( $class ) {
 		$annotations = $this->annotations->getClassAnnotations( $class );
 
 		if ( is_array( $annotations ) && array_key_exists( 'name', $annotations['Field_Group'][0] ) ) {
@@ -83,7 +83,7 @@ class Field_Generator {
 	 * @param $annotation
 	 * @param $field_group
 	 */
-	private function create_field( $annotation, $field_group ) {
+	private function create_field( $annotation, $field_group ) { //Todo: in generate einzeln aufrufen
 			if ( is_array( $annotation ) && array_key_exists( 'Field', $annotation ) ) {
 				$this->client->create_field(
 					$annotation['Field'][0]['name'],

@@ -12,7 +12,7 @@ use DSteiner23\Custom_Field_Repository\Client\ACF_Client;
 class Proxy_Factory
 {
 	/**
-	 * @param Field_Group_Interface $field_group
+	 * @param string $field_group
 	 *
 	 * @param $post_id
 	 *

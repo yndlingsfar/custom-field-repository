@@ -3,11 +3,11 @@
 namespace spec\DSteiner23\Custom_Field_Repository;
 
 use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
-use DSteiner23\Custom_Field_Repository\Examples\Sales_Report;
 use DSteiner23\Custom_Field_Repository\Field_Group_Repository;
 use DSteiner23\Custom_Field_Repository\Lazy_Load_Ghost_Proxy;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Test\Fixtures\Annotation_Valid;
 
 class Field_Group_RepositorySpec extends ObjectBehavior {
 	function it_is_initializable() {
@@ -16,7 +16,7 @@ class Field_Group_RepositorySpec extends ObjectBehavior {
 
 	function it_finds_field_group() {
 		$this->find(
-			Sales_Report::class,
+			Annotation_Valid::class,
 			1
 		)->shouldReturnAnInstanceOf( Lazy_Load_Ghost_Proxy::class );
 	}
