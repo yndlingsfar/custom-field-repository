@@ -38,7 +38,7 @@ class Lazy_Load_Ghost_Proxy {
 	 * Lazy_Load_Ghost_Proxy constructor.
 	 *
 	 * @param Client_Interface $client
-	 * @param Field_Group_Interface $field_Group
+	 * @param mixed $field_Group
 	 * @param $post_id
 	 * @param Annotations $annotations
 	 */
@@ -88,10 +88,6 @@ class Lazy_Load_Ghost_Proxy {
 	 * @return $this|mixed
 	 */
 	public function __call( $name, $arguments ) {
-
-		if ( ! $this->field_Group instanceof Field_Group_Interface ) {
-			throw new Proxy_Exception( 'Invalid object provided' );
-		}
 
 		if ( method_exists( $this->field_Group, $name ) ) {
 
