@@ -10,7 +10,7 @@ use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
  */
 class Lazy_Load_Ghost_Proxy {
 	/**
-	 * @var Field_Group_Interface
+	 * @var object
 	 */
 	private $field_Group;
 
@@ -38,7 +38,7 @@ class Lazy_Load_Ghost_Proxy {
 	 * Lazy_Load_Ghost_Proxy constructor.
 	 *
 	 * @param Client_Interface $client
-	 * @param mixed $field_Group
+	 * @param object $field_Group
 	 * @param $post_id
 	 * @param Annotations $annotations
 	 */

@@ -7,6 +7,9 @@ use DSteiner23\Custom_Field_Repository\Proxy_Factory;
 use PhpSpec\ObjectBehavior;
 use Test\Fixtures\Annotation_Valid;
 
+/**
+ * @package spec\DSteiner23\Custom_Field_Repository
+ */
 class Proxy_FactorySpec extends ObjectBehavior
 {
     function it_is_initializable()

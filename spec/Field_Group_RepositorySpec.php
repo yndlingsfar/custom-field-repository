@@ -9,6 +9,9 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Test\Fixtures\Annotation_Valid;
 
+/**
+ * @package spec\DSteiner23\Custom_Field_Repository
+ */
 class Field_Group_RepositorySpec extends ObjectBehavior {
 	function it_is_initializable() {
 		$this->shouldHaveType( Field_Group_Repository::class );
