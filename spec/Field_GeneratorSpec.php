@@ -5,6 +5,7 @@ namespace spec\DSteiner23\Custom_Field_Repository;
 use Alchemy\Component\Annotations\Annotations;
 use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
 use DSteiner23\Custom_Field_Repository\Field_Generator;
+use DSteiner23\Custom_Field_Repository\Field_Generator_Exception;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Test\Fixtures\Annotation_Valid;
@@ -21,6 +22,17 @@ class Field_GeneratorSpec extends ObjectBehavior {
 
 		$annotations->beADoubleOf( Annotations::class );
 
+		$annotations->getClassAnnotations( Annotation_Valid::class )->willReturn(
+			[
+				'Field_Group' => [
+					0 => [
+						'name'  => 'some_field_group',
+						'title' => 'some title'
+					]
+				]
+			]
+		);
+
 		$this->beConstructedWith(
 			[
 				Annotation_Valid::class
@@ -30,16 +42,6 @@ class Field_GeneratorSpec extends ObjectBehavior {
 	}
 
 	function it_should_generate_fields( $client, $annotations ) {
-		$annotations->getClassAnnotations( Annotation_Valid::class )->willReturn(
-			[
-				'Field_Group' => [
-					0 => [
-						'name'  => 'some_field_group'
-					]
-				]
-			]
-		);
-
 		$annotations->getAllPropertyAnnotations( Annotation_Valid::class )->willReturn(
 			[
 				0 => [
@@ -54,7 +56,7 @@ class Field_GeneratorSpec extends ObjectBehavior {
 
 		$client->create_field_group(
 			Argument::exact( 'some_field_group' ),
-			[]
+			Argument::any()
 		)->shouldBeCalled();
 
 		$client->create_field(
@@ -66,26 +68,15 @@ class Field_GeneratorSpec extends ObjectBehavior {
 		$this->generate()->shouldBeArray();
 	}
 
-	public function it_should_delegate_options_to_client($annotations, $client) {
-		$annotations->getClassAnnotations( Annotation_Valid::class )->willReturn(
-			[
-				'Field_Group' => [
-					0 => [
-						'name'  => 'some_field_group',
-						'title' => 'some title'
-					]
-				]
-			]
-		);
-
+	function it_should_delegate_options_to_client( $annotations, $client ) {
 		$annotations->getAllPropertyAnnotations( Annotation_Valid::class )->willReturn(
 			[
 				0 => [
 					'Field' => [
 						0 => [
-							'name' => 'some_name',
+							'name'    => 'some_name',
 							'default' => '',
-							'type' => 'text',
+							'type'    => 'text',
 						]
 					]
 				]
@@ -104,10 +95,35 @@ class Field_GeneratorSpec extends ObjectBehavior {
 			Argument::exact( 'some_field_group' ),
 			[
 				'default' => '',
-				'type' => 'text'
+				'type'    => 'text'
 			] )
 		       ->shouldBeCalled();
 
 		$this->generate()->shouldBeArray();
+	}
+
+	function it_should_throw_exception_if_field_options_is_unknwon($annotations, $client) {
+
+		$annotations->getAllPropertyAnnotations( Annotation_Valid::class )->willReturn(
+			[
+				0 => [
+					'Field' => [
+						0 => [
+							'name'    => 'some_name',
+							'default' => '',
+							'column'    => 'unknown',
+						]
+					]
+				]
+			]
+		);
+
+		$client->create_field_group(
+			Argument::any(),
+			Argument::any()
+		)->shouldBeCalled();
+
+		$this->shouldThrow(Field_Generator_Exception::class)->during('generate');
+
 	}
 }

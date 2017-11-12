@@ -11,6 +11,7 @@ use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
  */
 class Field_Generator {
 
+	const MANDATORY_NAME = 'name';
 	const OPTION_TITLE = 'title';
 	const OPTION_DEFAULT = 'default';
 	const OPTION_TYPE = 'type';
@@ -52,7 +53,7 @@ class Field_Generator {
 	public function generate() {
 		$files = [];
 		foreach ( $this->field_groups as $field_group ) {
-			$object = new $field_group;
+			$object = new $field_group; // Todo: Objekt von aussen hereingeben damit man besser mocken kann
 				$files[] = $object;
 				$this->create_fields( $field_group );
 		}
@@ -112,7 +113,16 @@ class Field_Generator {
 	private function get_field_options($annotations) {
 		$options = [];
 		foreach ($annotations['Field'][0] as $key => $value) {
-			if (in_array($key, self::$allowed_field_options)) {
+
+			if ($key === self::MANDATORY_NAME) {
+				continue;
+			}
+
+			if (!in_array($key, self::$allowed_field_options)) {
+				throw new Field_Generator_Exception(
+					sprintf('unrecognized option %s', $key)
+				);
+			}
 
 				if ($key == self::OPTION_TYPE) {
 					if (!$this->validate_data_types($value)) {
@@ -124,7 +134,7 @@ class Field_Generator {
 
 				$options[$key] = $value;
 			}
-		}
+
 
 		return $options;
 	}
