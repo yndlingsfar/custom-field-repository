@@ -67,7 +67,14 @@ class Field_Generator {
 	private function create_fields( $class ) {
 		$annotations = $this->annotations->getClassAnnotations( $class );
 
-		if ( is_array( $annotations ) && array_key_exists( 'name', $annotations['Field_Group'][0] ) ) {
+		if ( is_array( $annotations ) ) {
+
+			if (!array_key_exists( self::MANDATORY_NAME, $annotations['Field_Group'][0] )) {
+				throw new Field_Generator_Exception(
+					sprintf('mandatory configuration %s missing', self::MANDATORY_NAME)
+				);
+			}
+
 			$field_group = $annotations['Field_Group'][0]['name'];
 			$this->client->create_field_group( $field_group, $this->get_field_group_options( $annotations ) );
 
@@ -86,6 +93,13 @@ class Field_Generator {
 	 */
 	private function create_field( $annotation, $field_group ) { //Todo: in generate einzeln aufrufen
 			if ( is_array( $annotation ) && array_key_exists( 'Field', $annotation ) ) {
+
+				if (!array_key_exists( self::MANDATORY_NAME, $annotation['Field'][0] )) {
+					throw new Field_Generator_Exception(
+						sprintf('mandatory configuration %s for field missing', self::MANDATORY_NAME)
+					);
+				}
+
 				$this->client->create_field(
 					$annotation['Field'][0]['name'],
 					$field_group,

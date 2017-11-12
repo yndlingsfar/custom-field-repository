@@ -126,4 +126,42 @@ class Field_GeneratorSpec extends ObjectBehavior {
 		$this->shouldThrow(Field_Generator_Exception::class)->during('generate');
 
 	}
+
+	function it_should_throw_exception_if_field_group_name_is_missing($annotations) {
+		$annotations->getClassAnnotations( Annotation_Valid::class )->willReturn(
+			[
+				'Field_Group' => [
+					0 => [
+						'title' => 'some title'
+					]
+				]
+			]
+		);
+
+
+		$this->shouldThrow(Field_Generator_Exception::class)->during('generate');
+
+	}
+
+	function it_should_throw_exception_if_field_name_is_missing($annotations, $client) {
+		$annotations->getAllPropertyAnnotations( Annotation_Valid::class )->willReturn(
+			[
+				0 => [
+					'Field' => [
+						0 => [
+							'default' => ''
+						]
+					]
+				]
+			]
+		);
+
+		$client->create_field_group(
+			Argument::any(),
+			Argument::any()
+		)->shouldBeCalled();
+
+		$this->shouldThrow(Field_Generator_Exception::class)->during('generate');
+
+	}
 }
