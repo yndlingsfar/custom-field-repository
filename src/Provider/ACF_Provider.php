@@ -8,13 +8,6 @@ namespace DSteiner23\Custom_Field_Repository\Provider;
  */
 class ACF_Provider implements Provider_Interface {
 
-	public function __construct() {
-		if ( ! function_exists( 'acf_add_local_field_group' ) ) {
-			throw new \RuntimeException( 'The Advanced Custom Fields Pro Plugin is not installed, 
-				Please use NativeProvider instead' );
-		}
-	}
-
 	/**
 	 * @inheritdoc
 	 */
@@ -33,6 +26,12 @@ class ACF_Provider implements Provider_Interface {
 	 * @inheritdoc
 	 */
 	public function create_field_group( $name, array $options = [] ) {
+
+		if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+			throw new \RuntimeException( 'The Advanced Custom Fields Pro Plugin is not installed, 
+				Please use NativeProvider instead' );
+		}
+
 		acf_add_local_field_group( [
 			'key'      => sprintf( 'group_%s', $name ),
 			'title'    => isset( $options['title'] ) ? $options['title'] : $name,
