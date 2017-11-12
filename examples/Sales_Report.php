@@ -3,7 +3,7 @@
 namespace DSteiner23\Custom_Field_Repository\Examples;
 
 /**
- * @Field_Group(name="sales", title="Annual sales reports")
+ * @Field_Group(name="sales", title="Annual sales reports", provider="acf")
  */
 class Sales_Report {
 
