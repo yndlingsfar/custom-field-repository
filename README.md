@@ -123,7 +123,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Roadmap
 
-* Provider for Wordpress native custom fields
 * Repository functions (findBy(), findAll(), findOneBy() etc)
 
 ## Authors
