@@ -3,7 +3,7 @@
 namespace Test;
 
 use Alchemy\Component\Annotations\Annotations;
-use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
+use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
 use DSteiner23\Custom_Field_Repository\Examples\Sales_Report;
 use DSteiner23\Custom_Field_Repository\Field_Generator;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +20,7 @@ class Field_GeneratorTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->client = $this->prophesize( Client_Interface::class );
+		$this->client = $this->prophesize( Provider_Interface::class );
 	}
 
 	/**

@@ -2,7 +2,7 @@
 
 namespace Test;
 
-use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
+use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
 use DSteiner23\Custom_Field_Repository\Examples\Sales_Report;
 use DSteiner23\Custom_Field_Repository\Field_Group_Repository;
 use DSteiner23\Custom_Field_Repository\Lazy_Load_Ghost_Proxy;
@@ -26,7 +26,7 @@ class Field_Group_RepositoryTest extends TestCase {
 		parent::setUp();
 
 		$this->proxy = $this->prophesize(Lazy_Load_Ghost_Proxy::class);
-		$this->client = $this->prophesize(Client_Interface::class);
+		$this->client = $this->prophesize(Provider_Interface::class);
 	}
 
 	public function test_find_field_group() {

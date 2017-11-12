@@ -2,7 +2,7 @@
 
 namespace spec\DSteiner23\Custom_Field_Repository;
 
-use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
+use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
 use DSteiner23\Custom_Field_Repository\Field_Group_Repository;
 use DSteiner23\Custom_Field_Repository\Lazy_Load_Ghost_Proxy;
 use PhpSpec\ObjectBehavior;
@@ -24,7 +24,7 @@ class Field_Group_RepositorySpec extends ObjectBehavior {
 		)->shouldReturnAnInstanceOf( Lazy_Load_Ghost_Proxy::class );
 	}
 
-	function it_persists( Client_Interface $client, Lazy_Load_Ghost_Proxy $proxy ) {
+	function it_persists( Provider_Interface $client, Lazy_Load_Ghost_Proxy $proxy ) {
 		$proxy->get_client()->willReturn( $client );
 		$proxy->get_changes()->willReturn( [
 			'report',

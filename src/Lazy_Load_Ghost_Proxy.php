@@ -3,7 +3,7 @@
 namespace DSteiner23\Custom_Field_Repository;
 
 use Alchemy\Component\Annotations\Annotations;
-use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
+use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
 
 /**
  * Class Lazy_Load_Ghost_Proxy
@@ -20,7 +20,7 @@ class Lazy_Load_Ghost_Proxy {
 	private $post_id;
 
 	/**
-	 * @var Client_Interface
+	 * @var Provider_Interface
 	 */
 	private $client;
 
@@ -37,12 +37,12 @@ class Lazy_Load_Ghost_Proxy {
 	/**
 	 * Lazy_Load_Ghost_Proxy constructor.
 	 *
-	 * @param Client_Interface $client
+	 * @param Provider_Interface $client
 	 * @param object $field_Group
 	 * @param $post_id
 	 * @param Annotations $annotations
 	 */
-	public function __construct( Client_Interface $client, Annotations $annotations, $field_Group, $post_id ) {
+	public function __construct( Provider_Interface $client, Annotations $annotations, $field_Group, $post_id ) {
 		$this->client      = $client;
 		$this->annotations = $annotations;
 		$this->field_Group = $field_Group;
@@ -221,7 +221,7 @@ class Lazy_Load_Ghost_Proxy {
 	}
 
 	/**
-	 * @return Client_Interface
+	 * @return Provider_Interface
 	 */
 	public function get_client() {
 		return $this->client;

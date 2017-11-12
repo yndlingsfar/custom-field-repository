@@ -1,12 +1,12 @@
 <?php
 
-namespace DSteiner23\Custom_Field_Repository\Client;
+namespace DSteiner23\Custom_Field_Repository\Provider;
 
 /**
- * Class ACF_Client
+ * Class ACF_Provider
  * @package DSteiner23\Custom_Field_Repository
  */
-class ACF_Client implements Client_Interface {
+class ACF_Provider implements Provider_Interface {
 
 	/**
 	 * @inheritdoc

@@ -3,7 +3,7 @@
 namespace spec\DSteiner23\Custom_Field_Repository;
 
 use Alchemy\Component\Annotations\Annotations;
-use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
+use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
 use DSteiner23\Custom_Field_Repository\Field_Generator;
 use DSteiner23\Custom_Field_Repository\Field_Generator_Exception;
 use PhpSpec\ObjectBehavior;
@@ -18,7 +18,7 @@ class Field_GeneratorSpec extends ObjectBehavior {
 		$this->shouldHaveType( Field_Generator::class );
 	}
 
-	function let( Client_Interface $client, Annotations $annotations ) {
+	function let( Provider_Interface $client, Annotations $annotations ) {
 
 		$annotations->beADoubleOf( Annotations::class );
 

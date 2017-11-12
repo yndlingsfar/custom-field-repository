@@ -1,12 +1,12 @@
 <?php
 
-namespace DSteiner23\Custom_Field_Repository\Client;
+namespace DSteiner23\Custom_Field_Repository\Provider;
 
 /**
- * Interface Client_Interface
+ * Interface Provider_Interface
  * @package DSteiner23\Custom_Field_Repository
  */
-interface Client_Interface {
+interface Provider_Interface {
 
 	/**
 	 * @param string $field

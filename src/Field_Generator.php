@@ -3,7 +3,7 @@
 namespace DSteiner23\Custom_Field_Repository;
 
 use Alchemy\Component\Annotations\Annotations;
-use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
+use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
 
 /**
  * Class Field_Generator
@@ -20,7 +20,7 @@ class Field_Generator {
 	const TYPE_BOOLEAN = 'true_false';
 
 	/**
-	 * @var Client_Interface
+	 * @var Provider_Interface
 	 */
 	private $client;
 	/**
@@ -41,10 +41,10 @@ class Field_Generator {
 	 * Field_Generator constructor.
 	 *
 	 * @param array $field_groups
-	 * @param Client_Interface $client
+	 * @param Provider_Interface $client
 	 * @param Annotations $annotations
 	 */
-	public function __construct( array $field_groups, Client_Interface $client, Annotations $annotations ) {
+	public function __construct( array $field_groups, Provider_Interface $client, Annotations $annotations ) {
 		$this->field_groups = $field_groups;
 		$this->client       = $client;
 		$this->annotations  = $annotations;

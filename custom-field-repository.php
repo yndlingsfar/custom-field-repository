@@ -37,14 +37,15 @@ function check_dependecies(){
 
 function custom_field_repository() {
 	include_once 'libs/annotations/Annotations.php';
-	include_once 'src/Client/Client_Interface.php';
-	include_once 'src/Client/ACF_Client.php';
+	include_once 'src/Client/Provider_Interface.php';
+	include_once 'src/Client/ACF_Provider.php';
 	include_once 'src/Field_Group_Repository.php';
 	include_once 'src/Field_Generator_Factory.php';
 	include_once 'src/Field_Generator.php';
 	include_once 'src/Lazy_Load_Ghost_Proxy.php';
 	include_once 'src/Proxy_Factory.php';
 	include_once 'src/Proxy_Exception.php';
+	include_once 'src/Field_Generator_Exception.php';
 }
 
 function register_custom_field_repository ($field_groups) {

@@ -3,7 +3,7 @@
 namespace Test;
 
 use Alchemy\Component\Annotations\Annotations;
-use DSteiner23\Custom_Field_Repository\Client\Client_Interface;
+use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
 use DSteiner23\Custom_Field_Repository\Examples\Sales_Report;
 use DSteiner23\Custom_Field_Repository\Lazy_Load_Ghost_Proxy;
 use DSteiner23\Custom_Field_Repository\Proxy_Exception;
@@ -27,7 +27,7 @@ class Lazy_Load_Ghost_ProxyTest extends TestCase {
 		parent::setUp();
 
 		$this->client = $this->prophesize(
-			Client_Interface::class
+			Provider_Interface::class
 		);
 
 		$this->report = new Lazy_Load_Ghost_Proxy(
