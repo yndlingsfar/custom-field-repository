@@ -27,18 +27,11 @@ use DSteiner23\Custom_Field_Repository\Field_Group_Repository;
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 custom_field_repository();
 
-register_activation_hook( __FILE__, 'check_dependecies' );
-function check_dependecies(){
-	if (!function_exists('acf_add_local_field_group')) {
-		$error_message = 'The Advanced Custom Fields Pro Plugin is not installed';
-		die($error_message);
-	}
-}
-
 function custom_field_repository() {
 	include_once 'libs/annotations/Annotations.php';
-	include_once 'src/Client/Provider_Interface.php';
-	include_once 'src/Client/ACF_Provider.php';
+	include_once 'src/Provider/Provider_Interface.php';
+	include_once 'src/Provider/ACF_Provider.php';
+	include_once 'src/Provider/Native_Provider.php';
 	include_once 'src/Field_Group_Repository.php';
 	include_once 'src/Field_Generator_Factory.php';
 	include_once 'src/Field_Generator.php';
