@@ -5,7 +5,7 @@ Plugin URI: https://danielsteiner-ws.de
 Description: Provides functionality for mapping ACF groups to objects
 Author: dsteiner23
 Author URI: https://danielsteiner-ws.de
-Version: 1.0
+Version: 0.9
 Text Domain: LOKI - Custom Field Repository
 License: GPL2
 Loki - Custom Field Repository is free software: you can redistribute it and/or modify
