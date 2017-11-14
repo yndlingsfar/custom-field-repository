@@ -2,13 +2,13 @@
 
 # Loki CFR - Custom Field Repository
 
-a custom Field repository that transforms Wordpress custom fields into an Object Relational Mapper (ORM)
+a custom Field repository that transforms Wordpress custom fields into an Object Relational Mapper (ORM).
 
-Configuration of object behaviour is done via annotations
+Technically, Loki provides an easy-to-use interface for generating, populating and reading custom fields based on custom PHP objects.
+ 
+Once you have created an object with some special property annotations, the plugin will do the rest.
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 PHP 5.6+
@@ -54,7 +54,26 @@ class Sales_Report {
 	}
 }
 ```
-The plugin comes with support for two different custom field provider.
+### Field group options
+
+| Property        | Values        | Default               |
+| -------------   | ------------- | -----                 |
+| _name_      	  | any           | none, mandatory value |
+| _title_         | any           | none, optional        |
+| _provider_      | native, acf   | native                |
+
+### Field options
+
+| Property        | Values           | Default               |
+| -------------   |:-------------    | -----                 |
+| _name_      	  | any              | none, mandatory value |
+| _label_         | any              | none, optional        |
+| _type_          | text, true_false | text                  |
+| _default_       | any              | text                  |
+
+
+### Custom field provider
+Loki CFR comes with support for two different custom field provider
 
 **Advanced Custom Fields Pro (recommended, but requires installed ACF Pro plugin)**
 
@@ -66,7 +85,7 @@ The plugin comes with support for two different custom field provider.
 ```php
 @Field_Group(name="sales", title="Annual sales reports", provider="native")
 ```
-Registering annotated classes
+### Registering annotated classes
 
 After generating an annotated class we register the class(es) and let the plugin do all the work (generating fields, fieldgroups etc)
 
@@ -80,7 +99,7 @@ function register() {
 
 ```
 
-**Writing**
+### Writing
 
 ```php
 add_action( 'init', 'write' );
@@ -96,7 +115,7 @@ function write() {
 
 ```
 
-**Reading (Lazy loaded)**
+### Reading (Lazy loaded)
 
 Data is fetched with lazy loading by using the getter methods
 
@@ -112,18 +131,6 @@ function read() {
 }
 
 ```
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Roadmap
-
-* Repository functions (findBy(), findAll(), findOneBy() etc)
 
 ## Authors
 
