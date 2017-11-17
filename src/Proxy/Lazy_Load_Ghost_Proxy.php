@@ -1,12 +1,12 @@
 <?php
 
-namespace DSteiner23\Custom_Field_Repository;
+namespace DSteiner23\Custom_Field_Repository\Proxy;
 
 use Alchemy\Component\Annotations\Annotations;
 use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
 
 /**
- * Class Lazy_Load_Ghost_Proxy
+ * @package DSteiner23\Custom_Field_Repository\Proxy
  */
 class Lazy_Load_Ghost_Proxy {
 	/**

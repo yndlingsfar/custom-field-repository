@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\DSteiner23\Custom_Field_Repository;
+namespace spec\DSteiner23\Custom_Field_Repository\Proxy;
 
-use DSteiner23\Custom_Field_Repository\Proxy_Exception;
+use DSteiner23\Custom_Field_Repository\Proxy\Proxy_Exception;
 use PhpSpec\ObjectBehavior;
 
 /**

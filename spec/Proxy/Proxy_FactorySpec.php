@@ -1,10 +1,9 @@
 <?php
 
-namespace spec\DSteiner23\Custom_Field_Repository;
+namespace spec\DSteiner23\Custom_Field_Repository\Proxy;
 
-use DSteiner23\Custom_Field_Repository\Lazy_Load_Ghost_Proxy;
-use DSteiner23\Custom_Field_Repository\Provider\Provider_Manager;
-use DSteiner23\Custom_Field_Repository\Proxy_Factory;
+use DSteiner23\Custom_Field_Repository\Proxy\Lazy_Load_Ghost_Proxy;
+use DSteiner23\Custom_Field_Repository\Proxy\Proxy_Factory;
 use PhpSpec\ObjectBehavior;
 use Test\Fixtures\Annotation_Valid;
 

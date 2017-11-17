@@ -1,13 +1,13 @@
 <?php
 
-namespace DSteiner23\Custom_Field_Repository;
+namespace DSteiner23\Custom_Field_Repository\Field;
 
 use Alchemy\Component\Annotations\Annotations;
 use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
 
 /**
  * Class Field_Generator
- * @package DSteiner23\Custom_Field_Repository
+ * @package DSteiner23\Custom_Field_Repository\Field
  */
 class Field_Generator {
 

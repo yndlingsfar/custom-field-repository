@@ -22,7 +22,8 @@ You should have received a copy of the GNU General Public License
 along with Loki - Custom Field Repository.
 */
 
-use DSteiner23\Custom_Field_Repository\Field_Group_Repository;
+use DSteiner23\Custom_Field_Repository\Field\Field_Generator_Factory;
+use DSteiner23\Custom_Field_Repository\Field\Field_Group_Repository;
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 custom_field_repository();
@@ -33,18 +34,18 @@ function custom_field_repository() {
 	include_once 'src/Provider/ACF_Provider.php';
 	include_once 'src/Provider/Native_Provider.php';
 	include_once 'src/Provider/Provider_Manager.php';
-	include_once 'src/Field_Group_Repository.php';
-	include_once 'src/Field_Generator_Factory.php';
-	include_once 'src/Field_Generator.php';
-	include_once 'src/Lazy_Load_Ghost_Proxy.php';
-	include_once 'src/Proxy_Factory.php';
-	include_once 'src/Proxy_Exception.php';
-	include_once 'src/Field_Generator_Exception.php';
+	include_once 'src/Field/Field_Group_Repository.php';
+	include_once 'src/Field/Field_Generator_Factory.php';
+	include_once 'src/Field/Field_Generator.php';
+	include_once 'src/Proxy/Lazy_Load_Ghost_Proxy.php';
+	include_once 'src/Proxy/Proxy_Factory.php';
+	include_once 'src/Proxy/Proxy_Exception.php';
+	include_once 'src/Field/Field_Generator_Exception.php';
 }
 
 function register_custom_field_repository ($field_groups) {
 	if (is_array($field_groups)) {
-		$field_generator = \DSteiner23\Custom_Field_Repository\Field_Generator_Factory::create($field_groups);
+		$field_generator = Field_Generator_Factory::create($field_groups);
 		$field_generator->generate();
 	}
 }

@@ -1,8 +1,10 @@
 <?php
-namespace DSteiner23\Custom_Field_Repository;
+namespace DSteiner23\Custom_Field_Repository\Field;
+use DSteiner23\Custom_Field_Repository\Proxy\Lazy_Load_Ghost_Proxy;
+use DSteiner23\Custom_Field_Repository\Proxy\Proxy_Factory;
 
 /**
- * Class Field_Group_Repository
+ * @package DSteiner23\Custom_Field_Repository\Field
  */
 class Field_Group_Repository {
 

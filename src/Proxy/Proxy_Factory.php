@@ -1,13 +1,13 @@
 <?php
 
-namespace DSteiner23\Custom_Field_Repository;
+namespace DSteiner23\Custom_Field_Repository\Proxy;
 
 use Alchemy\Component\Annotations\Annotations;
 use DSteiner23\Custom_Field_Repository\Provider\Provider_Manager;
 
 
 /**
- * Class Proxy_Factory
+ * @package DSteiner23\Custom_Field_Repository\Proxy
  */
 class Proxy_Factory {
 	/**

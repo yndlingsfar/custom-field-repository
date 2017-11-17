@@ -1,9 +1,9 @@
 <?php
 
-namespace spec\DSteiner23\Custom_Field_Repository;
+namespace spec\DSteiner23\Custom_Field_Repository\Proxy;
 
 use Alchemy\Component\Annotations\Annotations;
-use DSteiner23\Custom_Field_Repository\Lazy_Load_Ghost_Proxy;
+use DSteiner23\Custom_Field_Repository\Proxy\Lazy_Load_Ghost_Proxy;
 use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
 use PhpSpec\ObjectBehavior;
 use Test\Fixtures\Annotation_Valid;

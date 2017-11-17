@@ -1,14 +1,14 @@
 <?php
 
-namespace spec\DSteiner23\Custom_Field_Repository;
+namespace spec\DSteiner23\Custom_Field_Repository\Field;
 
 use DSteiner23\Custom_Field_Repository\Examples\Sales_Report;
-use DSteiner23\Custom_Field_Repository\Field_Generator;
-use DSteiner23\Custom_Field_Repository\Field_Generator_Factory;
+use DSteiner23\Custom_Field_Repository\Field\Field_Generator;
+use DSteiner23\Custom_Field_Repository\Field\Field_Generator_Factory;
 use PhpSpec\ObjectBehavior;
 
 /**
- * @package spec\DSteiner23\Custom_Field_Repository
+ * @package spec\DSteiner23\Custom_Field_Repository\Field
  */
 class Field_Generator_FactorySpec extends ObjectBehavior
 {

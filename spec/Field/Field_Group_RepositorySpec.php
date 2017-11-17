@@ -1,16 +1,16 @@
 <?php
 
-namespace spec\DSteiner23\Custom_Field_Repository;
+namespace spec\DSteiner23\Custom_Field_Repository\Field;
 
 use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
-use DSteiner23\Custom_Field_Repository\Field_Group_Repository;
-use DSteiner23\Custom_Field_Repository\Lazy_Load_Ghost_Proxy;
+use DSteiner23\Custom_Field_Repository\Field\Field_Group_Repository;
+use DSteiner23\Custom_Field_Repository\Proxy\Lazy_Load_Ghost_Proxy;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Test\Fixtures\Annotation_Valid;
 
 /**
- * @package spec\DSteiner23\Custom_Field_Repository
+ * @package spec\DSteiner23\Custom_Field_Repository\Field
  */
 class Field_Group_RepositorySpec extends ObjectBehavior {
 	function it_is_initializable() {

@@ -1,17 +1,17 @@
 <?php
 
-namespace spec\DSteiner23\Custom_Field_Repository;
+namespace spec\DSteiner23\Custom_Field_Repository\Field;
 
 use Alchemy\Component\Annotations\Annotations;
 use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
-use DSteiner23\Custom_Field_Repository\Field_Generator;
-use DSteiner23\Custom_Field_Repository\Field_Generator_Exception;
+use DSteiner23\Custom_Field_Repository\Field\Field_Generator;
+use DSteiner23\Custom_Field_Repository\Field\Field_Generator_Exception;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Test\Fixtures\Annotation_Valid;
 
 /**
- * @package spec\DSteiner23\Custom_Field_Repository
+ * @package spec\DSteiner23\Custom_Field_Repository\Field
  */
 class Field_GeneratorSpec extends ObjectBehavior {
 	function it_is_initializable() {

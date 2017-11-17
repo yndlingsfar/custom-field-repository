@@ -1,10 +1,9 @@
 <?php
 
-namespace spec\DSteiner23\Custom_Field_Repository;
+namespace spec\DSteiner23\Custom_Field_Repository\Field;
 
-use DSteiner23\Custom_Field_Repository\Field_Generator_Exception;
+use DSteiner23\Custom_Field_Repository\Field\Field_Generator_Exception;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class Field_Generator_ExceptionSpec extends ObjectBehavior
 {
