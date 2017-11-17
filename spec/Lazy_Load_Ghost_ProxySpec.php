@@ -48,6 +48,7 @@ class Lazy_Load_Ghost_ProxySpec extends ObjectBehavior
 
     function it_should_check_if_property_changed()
     {
+	    $this->add_change('report');
     	$this->is_changed('report')->shouldReturn(true);
     }
 
@@ -71,8 +72,9 @@ class Lazy_Load_Ghost_ProxySpec extends ObjectBehavior
 		$this->get_property_path('report')->shouldReturn('some_field_group.report');
 	}
 
-	function it_should_get_the_property_value()
+	function it_should_get_the_property_value(Provider_Interface $provider)
 	{
+		$provider->get_value('some_field_group.report', 1)->shouldBeCalled()->willReturn('the_report');
 		$this->get_property_value('report')->shouldReturn('the_report');
 	}
 }
