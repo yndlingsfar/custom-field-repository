@@ -2,7 +2,7 @@
 
 namespace DSteiner23\Custom_Field_Repository\Proxy;
 
-use Alchemy\Component\Annotations\Annotations;
+use DSteiner23\Custom_Field_Repository\Field\Field_Reader;
 use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
 
 /**
@@ -25,9 +25,9 @@ class Lazy_Load_Ghost_Proxy {
 	private $client;
 
 	/**
-	 * @var Annotations
+	 * @var Field_Reader
 	 */
-	private $annotations;
+	private $reader;
 
 	/**
 	 * @var array
@@ -38,13 +38,13 @@ class Lazy_Load_Ghost_Proxy {
 	 * Lazy_Load_Ghost_Proxy constructor.
 	 *
 	 * @param Provider_Interface $client
-	 * @param object $field_Group
+	 * @param Field_Reader $reader
+	 * @param $field_Group
 	 * @param $post_id
-	 * @param Annotations $annotations
 	 */
-	public function __construct( Provider_Interface $client, Annotations $annotations, $field_Group, $post_id ) {
+	public function __construct( Provider_Interface $client, Field_Reader $reader, $field_Group, $post_id ) {
 		$this->client      = $client;
-		$this->annotations = $annotations;
+		$this->reader = $reader;
 		$this->field_Group = $field_Group;
 		$this->post_id     = $post_id;
 	}
@@ -116,9 +116,9 @@ class Lazy_Load_Ghost_Proxy {
 		$property_name = str_replace( [ 'get_', 'get' ], '', $name );
 		$property      = $this->get_reflection_property( $property_name );
 
-		if ( $this->is_annotated_field( $property_name ) && ! $this->is_changed( $property_name ) ) {
+		if ( $this->reader->is_annotated_field( $property_name ) && ! $this->is_changed( $property_name ) ) {
 			$property->setValue( $this->field_Group,
-				$this->client->get_value( $this->get_property_path( $property_name ), $this->post_id ) );
+				$this->client->get_value( $this->reader->get_field_key( $property_name ), $this->post_id ) );
 		}
 
 		return $property->getValue( $this->field_Group );
@@ -134,7 +134,7 @@ class Lazy_Load_Ghost_Proxy {
 		$property_name = str_replace( [ 'set_', 'set' ], '', $name );
 		$property      = $this->get_reflection_property( $property_name );
 
-		if ( $this->is_annotated_field( $property_name ) ) {
+		if ( $this->reader->is_annotated_field( $property_name ) ) {
 			// add to list of changes
 			$this->add_change( $property_name ); // Hier ein Objekt vom Typ FIELD hinzufügen
 			$property->setValue( $this->field_Group, $value );
@@ -156,68 +156,8 @@ class Lazy_Load_Ghost_Proxy {
 		return $property;
 	}
 
-	/**
-	 * @param $property_name
-	 *
-	 * @return bool
-	 */
-	private function is_annotated_field( $property_name ) {
-		$annotations = $this->get_annotations( $property_name );
-
-		return is_array( $annotations ) && array_key_exists( 'Field', $annotations );
-	}
-
-	/**
-	 * @param $property_name
-	 *
-	 * @return array
-	 */
-	private function get_annotations( $property_name ) {
-		return $this->annotations->getPropertyAnnotations(
-			get_class( $this->field_Group ),
-			$property_name
-		);
-	}
-
-	/**
-	 * @param $property_name
-	 *
-	 * @return string
-	 */
-	private function get_field_name( $property_name ) {
-		$annotations = $this->get_annotations( $property_name );
-
-		if ( ! is_array( $annotations ) || ! array_key_exists( 'name', $annotations['Field'][0] ) ) {
-			throw new Proxy_Exception( sprintf( 'Field %s not configured correctly', $property_name ) );
-		}
-
-		return $annotations['Field'][0]['name'];
-	}
-
-	/**
-	 * @return string
-	 */
-	private function get_field_group_name() {
-		$annotations = $this->annotations->getClassAnnotations(
-			get_class( $this->field_Group )
-		);
-
-		if ( ! is_array( $annotations ) || ! array_key_exists( 'name', $annotations['Field_Group'][0] ) ) {
-			throw new Proxy_Exception( sprintf( 'Field_Group %s not configured correctly' ) );
-		}
-
-		return $annotations['Field_Group'][0]['name'];
-	}
-
-	/**
-	 * Returns combination if field_group_name and field_name e.g. field_group.field
-	 *
-	 * @param $property_name
-	 *
-	 * @return string
-	 */
-	public function get_property_path( $property_name ) {
-		return sprintf( '%s.%s', $this->get_field_group_name(), $this->get_field_name( $property_name ) );
+	public function get_field_key($property_name) {
+		return $this->reader->get_field_key($property_name);
 	}
 
 	/**

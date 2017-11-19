@@ -33,8 +33,8 @@ class Field_Group_RepositorySpec extends ObjectBehavior {
 
 		$proxy->get_property_value( Argument::exact( 'report' ) )->shouldBeCalled();
 		$proxy->get_property_value( Argument::exact( 'author' ) )->shouldBeCalled();
-		$proxy->get_property_path( Argument::exact( 'report' ) )->shouldBeCalled();
-		$proxy->get_property_path( Argument::exact( 'author' ) )->shouldBeCalled();
+		$proxy->get_field_key( Argument::exact( 'report' ) )->shouldBeCalled();
+		$proxy->get_field_key( Argument::exact( 'author' ) )->shouldBeCalled();
 		$proxy->get_id()->shouldBeCalledTimes( 2 );
 
 		$client->set_value(

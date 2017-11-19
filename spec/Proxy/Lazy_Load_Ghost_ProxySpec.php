@@ -2,7 +2,7 @@
 
 namespace spec\DSteiner23\Custom_Field_Repository\Proxy;
 
-use Alchemy\Component\Annotations\Annotations;
+use DSteiner23\Custom_Field_Repository\Field\Field_Reader;
 use DSteiner23\Custom_Field_Repository\Proxy\Lazy_Load_Ghost_Proxy;
 use DSteiner23\Custom_Field_Repository\Provider\Provider_Interface;
 use PhpSpec\ObjectBehavior;
@@ -10,34 +10,14 @@ use Test\Fixtures\Annotation_Valid;
 
 class Lazy_Load_Ghost_ProxySpec extends ObjectBehavior
 {
-    function let(Provider_Interface $provider, Annotations $annotations)
+    function let(Provider_Interface $provider, Field_Reader $reader)
     {
-	    $annotations->getClassAnnotations( Annotation_Valid::class )->willReturn(
-		    [
-			    'Field_Group' => [
-				    0 => [
-					    'name' => 'some_field_group',
-					    'provider' => 'acf',
-				    ]
-			    ]
-		    ]
-	    );
 
-	    $annotations->getPropertyAnnotations(Annotation_Valid::class, 'report')->willReturn(
-		    [
-			    'Field' => [
-				    0 => [
-					    'name' => 'report',
-					    'type' => 'text',
-				    ]
-			    ]
-		    ]
-	    );
 
 	    $class = new Annotation_Valid();
 	    $class->set_report('the_report');
 
-		$this->beConstructedWith($provider, $annotations, $class, 1);
+		$this->beConstructedWith($provider, $reader, $class, 1);
 		$this->add_change('some_property');
     }
 
@@ -67,14 +47,19 @@ class Lazy_Load_Ghost_ProxySpec extends ObjectBehavior
 		$this->get_client()->shouldReturnAnInstanceOf(Provider_Interface::class);
 	}
 
-	function  it_should_get_the_property_name()
+	function it_should_get_the_property_value(Provider_Interface $provider, $reader)
 	{
-		$this->get_property_path('report')->shouldReturn('some_field_group.report');
+		$reader->is_annotated_field( 'report' )->willReturn(true);
+		$reader->get_field_key( 'report' )->willReturn('some_field_group.report');
+
+		$provider->get_value('some_field_group.report', 1)->shouldBeCalled()->willReturn('the_report');
+
+		$this->get_property_value('report')->shouldReturn('the_report');
 	}
 
-	function it_should_get_the_property_value(Provider_Interface $provider)
-	{
-		$provider->get_value('some_field_group.report', 1)->shouldBeCalled()->willReturn('the_report');
-		$this->get_property_value('report')->shouldReturn('the_report');
+	function it_should_delegate_field_key_name($reader) {
+		$reader->get_field_key( 'report' )->willReturn('some_field_group.report');
+
+    	$this->get_field_key('report')->shouldReturn('some_field_group.report');
 	}
 }

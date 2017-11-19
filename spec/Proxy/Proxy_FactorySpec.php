@@ -21,10 +21,4 @@ class Proxy_FactorySpec extends ObjectBehavior
     {
     	$this::create(Annotation_Valid::class, 1)->shouldReturnAnInstanceOf(Lazy_Load_Ghost_Proxy::class);
     }
-
-    //Todo: fixen
-//    function it_should_throw_error_if_class_not_found()
-//    {
-//	    $this->shouldThrow(\Error::class)->during('create', [\stdClass::class, 1]);
-//    }
 }
