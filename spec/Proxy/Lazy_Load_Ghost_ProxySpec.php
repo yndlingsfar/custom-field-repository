@@ -37,14 +37,6 @@ class Lazy_Load_Ghost_ProxySpec extends ObjectBehavior
 
 	}
 
-	function it_should_delegate_any_function_call() {
-
-	}
-
-	function it_should_lazy_load_when_using_camel_case_getter() {
-
-	}
-
 	function it_should_lazy_load_when_using_getter($provider, $reader) {
 		$reader->get_field_key('user_name')->shouldBeCalled()->willReturn('report.user_name');
 		$provider->get_value('report.user_name', 1)->shouldBeCalled()->willReturn('some_user');
@@ -79,6 +71,10 @@ class Lazy_Load_Ghost_ProxySpec extends ObjectBehavior
 	}
 
 	function it_can_handle_camel_case_setter() {
+
+	}
+
+	function it_should_delegate_any_function_call() {
 
 	}
 
