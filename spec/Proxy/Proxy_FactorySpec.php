@@ -5,7 +5,7 @@ namespace spec\DSteiner23\Custom_Field_Repository\Proxy;
 use DSteiner23\Custom_Field_Repository\Proxy\Lazy_Load_Ghost_Proxy;
 use DSteiner23\Custom_Field_Repository\Proxy\Proxy_Factory;
 use PhpSpec\ObjectBehavior;
-use Test\Fixtures\Annotation_Valid;
+use Test\Fixtures\Annotation_Underscore;
 
 /**
  * @package spec\DSteiner23\Custom_Field_Repository
@@ -19,6 +19,6 @@ class Proxy_FactorySpec extends ObjectBehavior
 
     function it_should_create_lazy_load_ghost_proxy()
     {
-    	$this::create(Annotation_Valid::class, 1)->shouldReturnAnInstanceOf(Lazy_Load_Ghost_Proxy::class);
+    	$this::create(Annotation_Underscore::class, 1)->shouldReturnAnInstanceOf(Lazy_Load_Ghost_Proxy::class);
     }
 }

@@ -22,7 +22,7 @@ class Lazy_Load_Ghost_Proxy {
 	/**
 	 * @var Provider_Interface
 	 */
-	private $client;
+	private $provider;
 
 	/**
 	 * @var Field_Reader
@@ -43,8 +43,8 @@ class Lazy_Load_Ghost_Proxy {
 	 * @param $post_id
 	 */
 	public function __construct( Provider_Interface $client, Field_Reader $reader, $field_Group, $post_id ) {
-		$this->client      = $client;
-		$this->reader = $reader;
+		$this->provider    = $client;
+		$this->reader      = $reader;
 		$this->field_Group = $field_Group;
 		$this->post_id     = $post_id;
 	}
@@ -54,14 +54,14 @@ class Lazy_Load_Ghost_Proxy {
 	 *
 	 * @return bool
 	 */
-	public function is_changed( $property ) {
+	private function is_changed( $property ) {
 		return in_array( $property, $this->change );
 	}
 
 	/**
 	 * @param $property
 	 */
-	public function add_change( $property ) {
+	private function add_change( $property ) {
 		if ( ! $this->is_changed( $property ) ) {
 			$this->change[] = $property;
 		}
@@ -115,10 +115,9 @@ class Lazy_Load_Ghost_Proxy {
 	public function get_property_value( $name ) {
 		$property_name = str_replace( [ 'get_', 'get' ], '', $name );
 		$property      = $this->get_reflection_property( $property_name );
-
 		if ( $this->reader->is_annotated_field( $property_name ) && ! $this->is_changed( $property_name ) ) {
 			$property->setValue( $this->field_Group,
-				$this->client->get_value( $this->reader->get_field_key( $property_name ), $this->post_id ) );
+				$this->provider->get_value( $this->reader->get_field_key( $property_name ), $this->post_id ) );
 		}
 
 		return $property->getValue( $this->field_Group );
@@ -136,7 +135,7 @@ class Lazy_Load_Ghost_Proxy {
 
 		if ( $this->reader->is_annotated_field( $property_name ) ) {
 			// add to list of changes
-			$this->add_change( $property_name ); // Hier ein Objekt vom Typ FIELD hinzufügen
+			$this->add_change( $property_name );
 			$property->setValue( $this->field_Group, $value );
 		}
 
@@ -157,13 +156,13 @@ class Lazy_Load_Ghost_Proxy {
 	}
 
 	public function get_field_key($property_name) {
-		return $this->reader->get_field_key($property_name);
+		return $this->reader->get_field_key($property_name); // @Todo
 	}
 
 	/**
 	 * @return Provider_Interface
 	 */
-	public function get_client() {
-		return $this->client;
+	public function get_provider() { //@Todo
+		return $this->provider;
 	}
 }

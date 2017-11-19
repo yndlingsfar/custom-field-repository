@@ -7,7 +7,7 @@ use DSteiner23\Custom_Field_Repository\Field\Field_Group_Repository;
 use DSteiner23\Custom_Field_Repository\Proxy\Lazy_Load_Ghost_Proxy;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Test\Fixtures\Annotation_Valid;
+use Test\Fixtures\Annotation_Underscore;
 
 /**
  * @package spec\DSteiner23\Custom_Field_Repository\Field
@@ -19,13 +19,13 @@ class Field_Group_RepositorySpec extends ObjectBehavior {
 
 	function it_finds_field_group() {
 		$this->find(
-			Annotation_Valid::class,
+			Annotation_Underscore::class,
 			1
 		)->shouldReturnAnInstanceOf( Lazy_Load_Ghost_Proxy::class );
 	}
 
 	function it_persists( Provider_Interface $client, Lazy_Load_Ghost_Proxy $proxy ) {
-		$proxy->get_client()->willReturn( $client );
+		$proxy->get_provider()->willReturn( $client );
 		$proxy->get_changes()->willReturn( [
 			'report',
 			'author'

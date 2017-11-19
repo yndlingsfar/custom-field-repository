@@ -8,7 +8,7 @@ use DSteiner23\Custom_Field_Repository\Field\Field_Generator;
 use DSteiner23\Custom_Field_Repository\Field\Field_Generator_Exception;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Test\Fixtures\Annotation_Valid;
+use Test\Fixtures\Annotation_Underscore;
 
 /**
  * @package spec\DSteiner23\Custom_Field_Repository\Field
@@ -22,7 +22,7 @@ class Field_GeneratorSpec extends ObjectBehavior {
 
 		$annotations->beADoubleOf( Annotations::class );
 
-		$annotations->getClassAnnotations( Annotation_Valid::class )->willReturn(
+		$annotations->getClassAnnotations( Annotation_Underscore::class )->willReturn(
 			[
 				'Field_Group' => [
 					0 => [
@@ -35,14 +35,14 @@ class Field_GeneratorSpec extends ObjectBehavior {
 
 		$this->beConstructedWith(
 			[
-				Annotation_Valid::class
+				Annotation_Underscore::class
 			],
 			$client,
 			$annotations );
 	}
 
 	function it_should_generate_fields( $client, $annotations ) {
-		$annotations->getAllPropertyAnnotations( Annotation_Valid::class )->willReturn(
+		$annotations->getAllPropertyAnnotations( Annotation_Underscore::class )->willReturn(
 			[
 				0 => [
 					'Field' => [
@@ -69,7 +69,7 @@ class Field_GeneratorSpec extends ObjectBehavior {
 	}
 
 	function it_should_delegate_options_to_client( $annotations, $client ) {
-		$annotations->getAllPropertyAnnotations( Annotation_Valid::class )->willReturn(
+		$annotations->getAllPropertyAnnotations( Annotation_Underscore::class )->willReturn(
 			[
 				0 => [
 					'Field' => [
@@ -104,7 +104,7 @@ class Field_GeneratorSpec extends ObjectBehavior {
 
 	function it_should_throw_exception_if_field_options_is_unknwon($annotations, $client) {
 
-		$annotations->getAllPropertyAnnotations( Annotation_Valid::class )->willReturn(
+		$annotations->getAllPropertyAnnotations( Annotation_Underscore::class )->willReturn(
 			[
 				0 => [
 					'Field' => [
@@ -128,7 +128,7 @@ class Field_GeneratorSpec extends ObjectBehavior {
 	}
 
 	function it_should_throw_exception_if_field_group_name_is_missing($annotations) {
-		$annotations->getClassAnnotations( Annotation_Valid::class )->willReturn(
+		$annotations->getClassAnnotations( Annotation_Underscore::class )->willReturn(
 			[
 				'Field_Group' => [
 					0 => [
@@ -144,7 +144,7 @@ class Field_GeneratorSpec extends ObjectBehavior {
 	}
 
 	function it_should_throw_exception_if_field_name_is_missing($annotations, $client) {
-		$annotations->getAllPropertyAnnotations( Annotation_Valid::class )->willReturn(
+		$annotations->getAllPropertyAnnotations( Annotation_Underscore::class )->willReturn(
 			[
 				0 => [
 					'Field' => [
