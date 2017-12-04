@@ -71,6 +71,17 @@ class Field_ReaderSpec extends ObjectBehavior {
 	}
 
 	function it_should_get_a_field_key() {
-		$this->get_field_key('some_property')->shouldReturn('some_field_group.some_field_name');
+		$this->get_field_key( 'some_property' )->shouldReturn( 'some_field_group.some_field_name' );
+	}
+
+	function it_check_if_property_has_id_annotatopns( $annotations ) {
+		$annotations->getPropertyAnnotations( \stdClass::class, 'id' )->willReturn(
+			[
+				'Id' => [
+					0 => []
+				]
+			] );
+
+		$this->is_identifier( 'id' )->shouldReturn( true );
 	}
 }

@@ -8,6 +8,12 @@ namespace DSteiner23\Custom_Field_Repository\Examples;
 class Sales_Report {
 
 	/**
+	 * @var integer
+	 * @Id
+	 */
+	private $id;
+
+	/**
 	 * @var string
 	 * @Field(name="report", type="text", default="test")
 	 */
@@ -22,6 +28,13 @@ class Sales_Report {
 	 * @var string
 	 */
 	private $author;
+
+	/**
+	 * @return int
+	 */
+	public function getId(): int {
+		return $this->id;
+	}
 
 	/**
 	 * @return string

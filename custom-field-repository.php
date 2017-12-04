@@ -29,18 +29,7 @@ if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 custom_field_repository();
 
 function custom_field_repository() {
-	include_once 'libs/annotations/Annotations.php';
-	include_once 'src/Provider/Provider_Interface.php';
-	include_once 'src/Provider/ACF_Provider.php';
-	include_once 'src/Provider/Native_Provider.php';
-	include_once 'src/Provider/Provider_Manager.php';
-	include_once 'src/Field/Field_Group_Repository.php';
-	include_once 'src/Field/Field_Generator_Factory.php';
-	include_once 'src/Field/Field_Generator.php';
-	include_once 'src/Proxy/Lazy_Load_Ghost_Proxy.php';
-	include_once 'src/Proxy/Proxy_Factory.php';
-	include_once 'src/Proxy/Proxy_Exception.php';
-	include_once 'src/Field/Field_Generator_Exception.php';
+	include_once 'vendor/autoload.php';
 }
 
 function register_custom_field_repository ($field_groups) {

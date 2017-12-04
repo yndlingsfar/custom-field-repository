@@ -8,6 +8,12 @@ namespace Test\Fixtures;
 class Annotation_Underscore {
 
 	/**
+	 * @var integer
+	 * @Id
+	 */
+	private $id;
+
+	/**
 	 * @var string
 	 * @Field(name="report", type="text", default="test")
 	 */
